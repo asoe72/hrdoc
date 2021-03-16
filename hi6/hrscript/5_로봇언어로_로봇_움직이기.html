@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>5_로봇언어로 로봇 움직이기</title>
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+  </head>
+  <body>로봇의 목표위치를 표현하는 포즈를 이해한 후, 로봇 이동 명령을 배워봅시다.<br>
+    <br>
+    <h2>5.1. 포즈 (pose)</h2>
+    <p>포즈는 hi6 제어기에 기본 내장된 객체형으로서, 로봇의 각 축의 자세, 혹은 툴 끝의 직교좌표와방향을 표현합니다.</p>
+    포즈는 생성자 함수 Pose( )를 호출하여 생성합니다. 함수 매개변수들은 모두 위치 매개변수입니다. crd와 cfg는 문자열형이고,
+    나머지는 모두 숫자형입니다.<br>
+    <div class="codebox"> var 포즈변수명 = Pose(j1, j2, j3, …)&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; # 축 좌표<br>
+      var 포즈변수명 = Pose(x, y, z, rx, ry, rz, j7, j8,…, crd,
+      cfg)&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; # base 좌표<br>
+    </div>
+    <br>
+    6축+부가1축, 직교+부가 1축의 포즈를 생성하는 아래의 예를 참고하십시오.<br>
+    <div class="codebox"> var po1 = Pose(10, 90, 0, 0, -30, 0,
+      -1240.8)&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; # 축 좌표<br>
+      var po2 = Pose(1850, 0, 2010.5, 0, -90, 0, -1240.8, "base",
+      "fl;r2")&nbsp;&nbsp;&nbsp; # base 좌표<br>
+    </div>
+    <br>
+    혹은, 1개의 배열 혹은 문자열 매개변수로도 Pose 생성자 함수를 호출할 수 있습니다. 이를 활용해, 파일이나 원격통신으로 얻은
+    데이터를 포즈로 변환해 사용할 수 있습니다.<br>
+    <div class="codebox"> var 포즈변수명 = Pose(array)<br>
+      var 포즈변수명 = Pose(string)<br>
+    </div>
+    <br>
+    아래의 예를 참고하십시오.<br>
+    <div class="codebox"> var arr = [10, 90, 0, 0, -30, 0, -1240.8]<br>
+      var str = "[1850, 0, 2010.5, 0, -90, 0, -1240.8, \"base\", \"fl;r2\"]"<br>
+      var po3 = Pose(arr)<br>
+      var po4 = Pose(str)<br>
+    </div>
+    <br>
+     <br>
+    Pose 객체의 요소들은 다음의 키들로 접근 가능합니다.<br>
+    <table width="100%" cellspacing="2" cellpadding="2" border="1">
+      <tbody>
+        <tr>
+          <th>키</th>
+          <th>타입</th>
+          <th>값 범위</th>
+          <th>설명</th>
+          <th>단위, 비고</th>
+        </tr>
+        <tr>
+          <td>nj</td>
+          <td>정수형</td>
+          <td>1~16</td>
+          <td>축 개수</td>
+          <td><br>
+          </td>
+        </tr>
+        <tr>
+          <td>j1 ~ j16</td>
+          <td>실수형</td>
+          <td>8바이트 실수 범위</td>
+          <td>축 값</td>
+          <td>mm, deg</td>
+        </tr>
+        <tr>
+          <td>x, y, z</td>
+          <td>실수형</td>
+          <td>8바이트 실수 범위</td>
+          <td>직교좌표 값</td>
+          <td>mm</td>
+        </tr>
+        <tr>
+          <td>rx, ry, rz</td>
+          <td>실수형</td>
+          <td>8바이트 실수 범위</td>
+          <td>직교방향 값</td>
+          <td>deg</td>
+        </tr>
+        <tr>
+          <td rowspan="4">crd</td>
+          <td rowspan="4">문자열형</td>
+          <td>joint</td>
+          <td>축 좌표계 (default)</td>
+          <td rowspan="4"><br>
+          </td>
+        </tr>
+        <tr>
+          <td>base</td>
+          <td>베이스 좌표계</td>
+        </tr>
+        <tr>
+          <td>robot</td>
+          <td>로봇 좌표계</td>
+        </tr>
+        <tr>
+          <td>u1 ~ u10</td>
+          <td>사용자 좌표계</td>
+        </tr>
+        <tr>
+          <td rowspan="8">cfg</td>
+          <td rowspan="8">문자열형</td>
+          <td>s</td>
+          <td>|S|&gt;=180</td>
+          <td rowspan="7">; 으로 구분하여,조합 가능<br>
+            default는 모든 flag 꺼짐.</td>
+        </tr>
+        <tr>
+          <td>r1</td>
+          <td>|R1|&gt;=180</td>
+        </tr>
+        <tr>
+          <td>r2</td>
+          <td>|R2|&gt;=180</td>
+        </tr>
+        <tr>
+          <td>b</td>
+          <td>|B|&gt;=180</td>
+        </tr>
+        <tr>
+          <td>re</td>
+          <td>rear</td>
+        </tr>
+        <tr>
+          <td>dn</td>
+          <td>down</td>
+        </tr>
+        <tr>
+          <td>fl</td>
+          <td>flip</td>
+        </tr>
+        <tr>
+          <td>auto</td>
+          <td>auto (자동 결정)</td>
+          <td> <br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <br>
+    아래의 예와 같이 포즈 요소값에 접근할 수 있습니다.<br>
+    <div class="codebox"> po1.j2 = po1.j2 + 5<br>
+      print po2.z, po2.cfg<br>
+    </div>
+    <br>
+     <br>
+    <h2>5.2. 시프트 (shift)</h2>
+    시프트는 hi6 제어기에 기본 내장된 객체형으로서, 포즈에 대한 변경값을 표현합니다.<br>
+    시프트는 생성자 함수 Shift( )를 호출하여 생성합니다. 함수 매개변수들은 모두 위치 매개변수입니다. crd와 cfg는 문자열형이고,
+    나머지는 모두 숫자형입니다.<br>
+    <div class="codebox"> var 시프트변수명 = Shift(j1, j2, j3, …)&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; # 축 좌표<br>
+      var 시프트변수명 = Shift(x, y, z, rx, ry, rz, j7, j8,…, crd)&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; # base 좌표<br>
+    </div>
+    6축+부가1축, 직교+부가 1축의 시프트를 생성하는 아래의 예를 참고하십시오.<br>
+    <div class="codebox"> var sft1 = Shift(30, 0, 0, 0, -5.8, 0,
+      -120)&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; # 축 좌표<br>
+      var sft2 = Shift(0, 0, 55.2, 0, -5, 0, -120, "base")&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; # base 좌표<br>
+    </div>
+    혹은, 1개의 배열 혹은 문자열 매개변수로도 Shift 생성자 함수를 호출할 수 있습니다. 이를 활용해, 파일이나 원격통신으로 얻은
+    데이터를 시프트로 변환해 사용할 수 있습니다.<br>
+    <div class="codebox"> var 시프트변수명 = Shift(array)<br>
+      var 시프트변수명 = Shift(string)<br>
+    </div>
+    아래의 예를 참고하십시오.<br>
+    <div class="codebox"> var arr = [30, 0, 0, 0, -5.8, 0, -120]<br>
+      var str = "[0, 0, 55.2, 0, -5, 0, -120, \"base\"]"<br>
+      var sft3 = Shift(arr)<br>
+      var sft4 = Shift(str)<br>
+    </div>
+    <br>
+    Shift 객체의 요소들은 다음의 키들로 접근 가능합니다.<br>
+    <table>
+      <tbody>
+        <tr>
+          <th> 키 </th>
+          <th> 타입 </th>
+          <th> 값 범위 </th>
+          <th> 설명 </th>
+          <th> 단위, 비고 </th>
+        </tr>
+        <tr>
+          <td> nj </td>
+          <td> 정수형 </td>
+          <td> 1~16 </td>
+          <td> 축 개수 </td>
+          <td> <br>
+          </td>
+        </tr>
+        <tr>
+          <td> j1 ~ j16 </td>
+          <td> 실수형 </td>
+          <td> 8바이트 실수 범위 </td>
+          <td> 축 값 </td>
+          <td> mm, deg </td>
+        </tr>
+        <tr>
+          <td> x, y, z </td>
+          <td> 실수형 </td>
+          <td> 8바이트 실수 범위 </td>
+          <td> 직교좌표 값 </td>
+          <td> mm </td>
+        </tr>
+        <tr>
+          <td> rx, ry, rz </td>
+          <td> 실수형 </td>
+          <td> 8바이트 실수 범위 </td>
+          <td> 직교방향 값 </td>
+          <td> deg </td>
+        </tr>
+        <tr>
+          <td rowspan="5"> crd </td>
+          <td rowspan="5"> 문자열형 </td>
+          <td> joint </td>
+          <td> 축 좌표계 (default) </td>
+          <td rowspan="5"> <br>
+          </td>
+        </tr>
+        <tr>
+          <td> base </td>
+          <td> 베이스 좌표계 </td>
+        </tr>
+        <tr>
+          <td> robot </td>
+          <td> 로봇 좌표계 </td>
+        </tr>
+        <tr>
+          <td> tool </td>
+          <td> 툴 좌표계 </td>
+        </tr>
+        <tr>
+          <td> u1 ~ u10 </td>
+          <td> 사용자 좌표계 </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <h2>5.3. 포즈식 (pose expression)</h2>
+    결과값이 포즈가 되는 수식을 포즈식이라고 합니다.<br>
+    아래와 같은 형태가 모두 포즈식으로 인식됩니다.<br>
+    <div class="codebox"> 포즈<br>
+      포즈+시프트<br>
+      포즈-시프트<br>
+      포즈+시프트+시프트+…<br>
+    </div>
+    포즈식의 결과를 다른 포즈 변수에 대입하는 아래의 예를 참고하십시오.<br>
+    <div class="codebox"> var po1 = Pose(10, 90, 0, 0, -30, 0)<br>
+      var po2 = Pose(1850, 0, 2010.5, 0, -90, 0, "base", "fl;r2")<br>
+      var po3 = cpo("robot")<br>
+      var sft1 = Shift(30, 0, 0, 0, -5.8, 0)<br>
+      var po4 = po1-sft1<br>
+      var po5 = po2+sft1+Shift(0, 0, 55.2, 0, -5, 0, "base")<br>
+    </div>
+    <br>
+    <h2>5.4. move문</h2>
+    move문은 로봇을 움직이는 프로시져입니다. 형식은 아래와 같습니다.<br>
+    <table cellspacing="0" cellpadding="0" border="1">
+      <tbody>
+        <tr>
+          <th> 설명 </th>
+          <td colspan="3"> 로봇의 툴 끝이 포즈 위치로 이동합니다. </td>
+        </tr>
+        <tr>
+          <th> 문법 </th>
+          <td colspan="3"> move &lt;보간&gt;, [tg=&lt;포즈/시프트&gt;], spd=&lt;속도&gt;,
+            accu=&lt;정밀도&gt; , tool=&lt;툴 번호&gt; [until &lt;조건식&gt;] </td>
+        </tr>
+        <tr>
+          <th rowspan="6"> 파라미터 </th>
+          <td> 보간 </td>
+          <td> P : 축보간, L : 직선보간, C : 원 호보간 SP: 정치툴 축보간, SL: 정치툴 직선보간, SC: 정치툴
+            원호보간 </td>
+          <td> <br>
+          </td>
+        </tr>
+        <tr>
+          <td> 포즈/ 시프트 </td>
+          <td> 이동할 목표(target) 자세 (포즈). 숨은 포즈가 있으면 생략됩니다. +나 – 부 호를 붙인 시프트식을 지정하면
+            (숨은포즈+시 프트식)이 목표 자세로 적용됩니다. </td>
+          <td> 포즈식 혹은 부호 시프트식 </td>
+        </tr>
+        <tr>
+          <td> 속도 </td>
+          <td> 툴 끝의 이동속도. 단위(mm/sec, cm/min, sec, %)를 붙여야 합니다. </td>
+          <td> 산술식. </td>
+        </tr>
+        <tr>
+          <td> 정밀도 </td>
+          <td> 산술식.&nbsp;낮을수록 정밀함. 0이면 불연속으로 동작 </td>
+          <td> 0~7 </td>
+        </tr>
+        <tr>
+          <td> 툴 번호 </td>
+          <td> 로봇 동작 시 사용할 툴의 번호. </td>
+          <td> 0~31 </td>
+        </tr>
+        <tr>
+          <td> 조건식 </td>
+          <td> 조건식이 참인 순간 로봇동작이 종료되고 지정한 포즈에 도달한 것으로 간주합니다. 조건식의 결과는 result( )
+            함수로 얻을 수 있습니다. </td>
+          <td> 0이 아니면 참 0이면 거짓 </td>
+        </tr>
+        <tr>
+          <th> 사용 예 </th>
+          <td colspan="3"> move L,tg=po[0]+sft[1],spd=800mm/sec,accu=0,tool=1
+            move P,tg=+Shift(0,0,0,0,-10,0),spd=80%,accu=1,tool=3 until di2 (숨은
+            포즈) if result() then *sensor_on </td>
+        </tr>
+      </tbody>
+    </table>
+    티치펜던트의 [기록] 버튼을 누르면 현재로봇 자세로 숨은 포즈 방식의 move문이 기록됩니다. 숨은 포즈의 값은 move 문에 커서를
+    두고 [속성] 버튼을 눌러 확인하거나 편집할 수 있습니다.<br>
+    [명령입력] 버튼을 누르고 [모션] 그룹을 연 후 move 메뉴를 선택하면, 포즈 방식의 move문이 기록됩니다.<br>
+    <br>
+     <br>
+    <h2> 5.5. 사용자좌표계 (UCS ; User Coordinate System)</h2>
+    사용자좌표계는 사용자가 위치와 방향을 설정할 수 있는 좌표계입니다.<br>
+    사용자좌표계는 생성자 함수 Ucs( )를 호출하여 생성합니다. <br>
+    <br>
+    함수 매개변수는 포즈 1개 혹은 포즈 3개입니다. 포즈 1개로 호출하면, 포즈의 위치와 방향이 좌표계의 원점과 방향으로 설정됩니다. 포즈
+    3개로 호출하면 pose1의 위치가 좌표계 원점, pose2의 위치가 좌표계 X축, pose3 위치가 좌표계 XY평면 상에 있도록
+    좌표계가 생성됩니다.<br>
+    <div class="codebox"> var UCS변수명 = Ucs(pose1)<br>
+      var UCS변수명 = Ucs(pose1, pose2, pose3)<br>
+    </div>
+    시스템에 사용자좌표계를 등록하려면 mkucs 함수를 사용합니다. 인수는 Ucs 생성자와 비슷하지만 첫 번째 인수로서 사용자좌표계 번호(1
+    이상)가 입력됩니다.<br>
+    <div class="codebox"> var res = mkucs(num, pose1)<br>
+      var res = mkucs(num, pose1, pose2, pose3)<br>
+    </div>
+    성공하면 0, 실패하면 에러코드를 음수로 리턴합니다.<br>
+    <br>
+  </body>
+</html>

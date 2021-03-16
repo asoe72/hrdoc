@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>2.5. 자료형 (type)</title>
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <h2>2.5 자료형 (type)</h2>
+    <h3>2.5.1. 문자열 자료형</h3>
+    앞 절의 첫 프로그램에서 print 문의 파라미터로서 "Hello, World" 라는 데이터를 사용했는데 이것은 문자열 자료형입니다.
+    문자열 자료형의 값은 큰 따옴표로 시작하고 끝납니다. 문자열 길이의 제한은 없습니다.<br>
+    <div class="codebox"> print "Welcome to the Robot World." </div>
+    문자열 내의 따옴표 혹은 특수 문자를 표현하기 위해 역슬래시(\)로 시작하는 시퀀스가 사용됩니다. 이러한 시퀀스를
+    이스케이프(escape) 문자라고 합니다.<br>
+    <p> 지원되는 이스케이프 문자는 아래 표와 같습니다.</p>
+    <table style="width: 100%" border="1">
+      <tbody>
+        <tr>
+          <td class="vert">"</td>
+          <td>큰 따옴표 (double quote)</td>
+        </tr>
+        <tr>
+          <td class="vert">\\</td>
+          <td>역 슬래시 (backslash)</td>
+        </tr>
+        <tr>
+          <td class="vert">\t</td>
+          <td>탭 (tab)</td>
+        </tr>
+        <tr>
+          <td class="vert">\n</td>
+          <td>탭 (tab)</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="codebox"> print "Message:\nPlease, press \"OK\"button."<br>
+      <br>
+      출력결과<br>
+      Message:<br>
+      Please, press "OK" button.</div>
+    <br>
+    <h3>2.5.2. 숫자 자료형</h3>
+    숫자 자료형은 정수나 실수를 보관합니다.숫자 자료형도 있습니다. print 문으로 출력해봅시다. 아래 예와 같이 print 문에 여러
+    개의 값을 쉼표(,)로 구분하여 나열하면, 각각의 값이 공백으로 구분되어 출력됩니다.<br>
+    <div class="codebox"> 280<br>
+      3.141592<br>
+      -99<br>
+      <br>
+      print 280, -99<br>
+    </div>
+    <p> 시스템 내부적으로는 정수와 실수를 따로 구분해서 처리합니다. 각각의 데이터 크기는 아래와 같습니다.</p>
+    <table style="width: 100%" border="1">
+      <tbody>
+        <tr>
+          <th>데이터 형</th>
+          <th>데이터 크기 (바이트)</th>
+        </tr>
+        <tr>
+          <td>정수 (integer)</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td>실수 (real)</td>
+          <td>8</td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <h3>2.5.3. bool 자료형</h3>
+    아래와 같은 논리, 비교연산의 결과로서 true(참)와 false(거짓)의 2가지 값만을 갖습니다.<br>
+    <div class="codebox"> var x=true<br>
+      print false and x<br>
+      print 10 &gt; 5<br>
+      print 10 &lt;= 5<br>
+      <br>
+      출력결과<br>
+      false<br>
+      true<br>
+      false<br>
+    </div>
+    <br>
+    <h3>2.5.4. 배열과 객체형</h3>
+    이외에도 배열(array)과 객체(object)형이 있습니다. 이 후, 4.1절과 4.2절에서 자세히 알아보겠습니다. <br>
+    <br>
+  </body>
+</html>

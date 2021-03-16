@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>기본 문법</title>
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <h2>2.3. 명령문의 종류</h2>
+    hrscript의 명령문에는 아래와 같이 4종류가 있습니다.<br>
+    <ul>
+      <li>프로시져 (procedure)</li>
+      <li>대입문 (assignment)</li>
+      <li>주석문 (comment)</li>
+      <li>레이블 (label)</li>
+    </ul>
+    <br>
+    <h3>2.3.1. 프로시져</h3>
+    <p> 프로시져는 명령어와 0~N개의 매개변수(parameter)들로 구성됩니다.</p>
+    <div class="codebox">move P,po3,spd=80%,accu=1,tool=3 until do33</div>
+    <p> 프로시져 매개변수는 아래와 같이 3가지 종류가 있습니다.</p>
+    <table style="width: 100%" border="1">
+      <tbody>
+        <tr>
+          <th>종류</th>
+          <th>문법</th>
+          <th>예제</th>
+        </tr>
+        <tr>
+          <td class="vert">위치(position) 매개변수</td>
+          <td>&lt;value&gt;</td>
+          <td>P, po3</td>
+        </tr>
+        <tr>
+          <td class="vert">키워드(keyword) 매개변수</td>
+          <td>&lt;keyword&gt; = &lt;value&gt;</td>
+          <td>spd=80%, accu=1, tool=3</td>
+        </tr>
+        <tr>
+          <td class="vert">전치사(preposition) 매개변수</td>
+          <td>&lt;preposition&gt;&nbsp; &lt;value&gt;</td>
+          <td>until do33</td>
+        </tr>
+      </tbody>
+    </table>
+    <p></p>
+    <p> 위치매개변수는 몇 번째에 위치하는지에 따라 그 역할이 결정되므로, 위치가 바뀌어서는 안 되며,프로시져의 가장 앞 부분에 있어야
+      합니다. 키워드 매개변수는 위치매개변수 다음에 있어야 하지만, 키워드 매개변수들 간의 순서는 동작에 영향을 주지 않습니다.</p>
+    <p> 전치사 매개변수는 맨 마지막에 배치됩니다.</p>
+    <p> </p>
+    <br>
+    <h3> 2.3.2. 대입문</h3>
+    <p> 대입문은 좌변과 대입 연산자(=), 우변으로 구성됩니다. 좌변(lvalue)는 반드시 값을 저장할 수 있는 변수여야 합니다.
+      상수나 수식은 허용되지 않습니다.</p>
+    우변(rvalue)은 상수, 변수, 수식이 모두 허용됩니다.<br>
+    <div class="codebox">height=(500+margin)/2</div>
+    <br>
+    <h3> 2.3.3. 주석문</h3>
+    job 프로그램의 내용을 이해하기 쉽도록 설명하는데 사용합니다. 주석문은 실행 되더라도 아무 동작도 수행되지 않습니다. 아래와 같이 해시
+    기호(#) 뒤에 설명을 붙이는 형식입니다. 하나의 명령문으로서 사용할 수도 있고 다른 명령문 뒤에 붙일 수도 있습니다.<br>
+    <div class="codebox"> # robot has to wait sensor2 input<br>
+      var work_w,work_h&nbsp; # 작업물의 너비와 높이<br>
+    </div>
+    <br>
+    <h3> 2.3.4. 레이블</h3>
+    goto 문에 의해 이동할 목표 지점을 표시합니다. 별표(*)와 식별자로 구성됩니다.
+  </body>
+</html>
