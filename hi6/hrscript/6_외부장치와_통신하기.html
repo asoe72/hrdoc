@@ -8,7 +8,10 @@
 </head>
 
 <body>
+  <h1>6. 외부장치와 통신하기</h1>
+
   <h2>6.1. fb객체 : 디지털 I/O</h2>
+
   HRScript에서 접근할 수 있는 총 10개의 fb객체를 통해 디지털 I/O 입출력을 할 수 있습니다. fb는 Fieldbus
   Block이라는 의미이며, 각 fb 객체는 로봇제어기에 장착된 I/O 하드웨어에 매핑되도록 설정되며, 출력변수와 입력변수들을 요소로서
   포함하고 있습니다.<br>
@@ -315,7 +318,7 @@
     var work_no=fb9.dib3    # fb9의 3번 바이트입력값을 work_no 변수에 대입
     if fb5.di43 then *err  	# fb5.di42가 켜지면 *err 레이블로 분기
     for idx=21 to 29
-    fb3.do[idx]=1     # fb3의 출력신호 do21 ~ do29를 모두 켠다. 
+      fb3.do[idx]=1     # fb3의 출력신호 do21 ~ do29를 모두 켠다. 
     next
     fb2.do3=fb2.do7=fb2.do11=1   # fb2의 3번, 7번, 11번 출력신호를 한꺼번에 켠다.</pre>
   
