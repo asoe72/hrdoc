@@ -313,15 +313,15 @@
   아래의 사용 예를 참고하십시오.<br>
   
   <pre class='codebox'>
-    do2=1	            # fb0의 2번 비트출력값 켠다.
-    fb2.dob3=0b00001111  	# fb2의 3번 바이트출력값을 2진 bit열로 지정
-    fb[4].dob1=0x0F  	# fb4의 1번 바이트출력값 하위 4비트를 켜고, 상위 4비트를 끈다.
-    var work_no=fb9.dib3    # fb9의 3번 바이트입력값을 work_no 변수에 대입
-    if fb5.di43 then *err  	# fb5.di42가 켜지면 *err 레이블로 분기
-    for idx=21 to 29
-      fb3.do[idx]=1     # fb3의 출력신호 do21 ~ do29를 모두 켠다. 
-    next
-    fb2.do3=fb2.do7=fb2.do11=1   # fb2의 3번, 7번, 11번 출력신호를 한꺼번에 켠다.</pre>
+  do2=1	            # fb0의 2번 비트출력값 켠다.
+  fb2.dob3=0b00001111  	# fb2의 3번 바이트출력값을 2진 bit열로 지정
+  fb[4].dob1=0x0F  	# fb4의 1번 바이트출력값 하위 4비트를 켜고, 상위 4비트를 끈다.
+  var work_no=fb9.dib3    # fb9의 3번 바이트입력값을 work_no 변수에 대입
+  if fb5.di43 then *err  	# fb5.di42가 켜지면 *err 레이블로 분기
+  for idx=21 to 29
+    fb3.do[idx]=1     # fb3의 출력신호 do21 ~ do29를 모두 켠다. 
+  next
+  fb2.do3=fb2.do7=fb2.do11=1   # fb2의 3번, 7번, 11번 출력신호를 한꺼번에 켠다.</pre>
   
 
   <br>
@@ -424,31 +424,30 @@
   <br>
   <br>
   <h3>6.2.5. TCP, UDP 통신 예제</h3>
-  <br>
 
   <pre class='codebox'>
-    import enet
-    global msg
-    global enet0=enet.ENet() # TCP 통신인 경우, ENet("tcp")
+  import enet
+  global msg
+  global enet0=enet.ENet() # TCP 통신인 경우, ENet("tcp")
 
-    # port no. 49152–65535 contains dynamic or private ports
-    enet0.ip_addr="192.168.1.172"
-    enet0.lport=51001 # UDP 통신에서만 필요
-    enet0.rport=51002
+  # port no. 49152–65535 contains dynamic or private ports
+  enet0.ip_addr="192.168.1.172"
+  enet0.lport=51001 # UDP 통신에서만 필요
+  enet0.rport=51002
 
-    enet0.open
-    enet0.connect # TCP 통신에서만 필요
-    print enet0.state() # 1이면 정상
-    enet0.send "hello, "+"udp", 300, "\n"
+  enet0.open
+  enet0.connect # TCP 통신에서만 필요
+  print enet0.state() # 1이면 정상
+  enet0.send "hello, "+"udp", 300, "\n"
 
-    enet0.recv msg, 8000 # 8초간 대기
-    print msg
-    delay 1.5
-    enet0.close
-    print enet0.state() # 0이면 정상
-    delay 1.5
-    end  </pre>
-  <br>
+  enet0.recv msg, 8000 # 8초간 대기
+  print msg
+  delay 1.5
+  enet0.close
+  print enet0.state() # 0이면 정상
+  delay 1.5
+  end  </pre>
+    
    <br>
   <h2>6.3. http_cli 모듈 : HTTP 클라이언트</h2>
   Hi6 제어기의 범용 이더넷 포트를 통해, 원격의 웹 서비스에 접근하여 HTTP 서비스를 받을 수 있습니다.<br>
@@ -516,28 +515,28 @@
 
 
   <pre class='codebox'>
-    import http_client
-    var cli=http_client.HttpClient()
+  import http_client
+  var cli=http_client.HttpClient()
 
-    var domain="http://192.168.1.200:8888"
+  var domain="http://192.168.1.200:8888"
 
-    # get
-    cli.get domain+"/device/direction"
-    print cli.body.ry
+  # get
+  cli.get domain+"/device/direction"
+  print cli.body.ry
 
-    # put
-    cli.body.ry=90
-    cli.put domain+"/device/direction"
+  # put
+  cli.body.ry=90
+  cli.put domain+"/device/direction"
 
-    # post
-    cli.body=={ name: "WORK #32", color: "green", state: "OK" }
-    cli.post domain+"/display/update"
+  # post
+  cli.body=={ name: "WORK #32", color: "green", state: "OK" }
+  cli.post domain+"/display/update"
 
-    # delete
-    cli.delete domain+"/items/3"
+  # delete
+  cli.delete domain+"/items/3"
 
-    end </pre>
-  
+  end </pre>
+
    <br>
   <h2>6.4. 티치펜던트 console bar로 입력받기</h2>
   <h3>6.4.1. input문</h3>
@@ -555,7 +554,7 @@
   input work_no,10<br>
   input work_no,10,*timeout<br>
   <br>
-  &nbsp;<br>
+
   <br>
   <img src="pic/6_3_console_bar.png" width="80%"><br>
 </body>
