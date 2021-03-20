@@ -24,17 +24,20 @@ p {
 h1 {
     color: rgb(73, 178, 141);
     font-size: 18pt;
+    margin-top: 2em;
     margin-bottom: 1em;
 }
 
 h2 {
     color: rgb(73, 178, 141);
     font-size: 14pt;
+    margin-top: 2.5em;
 }
 
 h3 {
     color: rgb(73, 178, 141);
     font-size: 12pt;
+    margin-top: 2em;
 }
 
 
@@ -75,7 +78,7 @@ td.vert {
 /* ----------------------------------------------------- */
 /* box */
 
-pre.codebox {
+pre.codebox, xmp.codebox {
     border: 1px solid rgb(73, 178, 141);
     line-height: 2em;
     width: 100%;
@@ -121,9 +124,8 @@ ol {
     counter-reset: li-counter;
 }
 
-li {
+ol li {
     list-style: none;
-    /* counter-reset: my-awesome-counter; */
     counter-increment: li-counter;
     line-height: 2em;
 }
@@ -133,4 +135,8 @@ ol li::before {
     color: rgb(73, 178, 141);
     font-weight: bold;
     margin-left: -1.3em;
+}
+
+ul li {
+    line-height: 2em;
 }

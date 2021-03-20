@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>2. 기본 문법</title>
+  <link type="text/css" rel="stylesheet" href="../../css/style.css">
+</head>
+
+<body>먼저, hrscript의 기본 용어들을 설명합니다. 변수를 정의하는 방법, 그리고 연산자를 사용해 간단한 수식을 구성하고 그
+  결과값을 변수에 대입하는 방법을 따라가면서, job 프로그램의 기본적인 개념을 이해해 보도록 하겠습니다.<br>
+
+
+  <h2>2.1. 명령문</h2>
+  명령문(statement)이란 JOB 프로그램의 실행 단위가 되는 각각의 명령 문자열을 말합니다.
+  hrscript는 한 행에 1개의 명령문만을 허용합니다. 아래에 4개의 명령문의 예를 보였습니다. 내용을 이해할 필요는 없습니다.
+  대략적인 형태만 눈여겨보세요.
+  <pre class="codebox">
+     move P,po3,spd=80%,accu=1,tool=3 until do33
+  10 z_pos = (base_height+offset)*1.05
+     # robot has to wait sensor2 input
+     *err_handle </pre>
+  로봇을 이동시키는 스텝 명령문(move문 등) 이외의 명령문에 대해서는 선택적으로 행의 선두에 행 번호(1~9999)를 붙일 수
+  있습니다. 두 번째 행에 있는 10이 행번호의 예입니다.
+  명령문의 앞과 뒤에는 임의 개수의 공백이나 tab이 있어도 상관없습니다.
+  가독성을 위해 명령문의 적절한 들여쓰기(indentation)가 권장됩니다. 들여쓰기는 공백과 tab이 모두 허용되며 실행 시 동작에
+  영향을 주지 않습니다.<br>
+
+
+  <h2>2.2. 식별자</h2>
+  앞으로 설명될 명령어, 변수, 함수, 레이블은 모두 이름을 가지고 있습니다. 이 이름들을 식별자(identifier)라고 통칭합니다.
+  식별자를 정할 때는 다음과 같은 hrscript의 식별자 규칙을 따라야만 합니다.<br>
+
+  <ul>
+    <li>영문 대소문자과 숫자, 밑줄(underscore)로만 구성됩니다.</li>
+    <li>첫 글자로는 숫자가 허용되지 않습니다. 반드시 대소문자, 혹은 밑줄이어야 합니다.</li>
+    <li>공백이나 tab을 포함할 수 없습니다.</li>
+    <li>if, for 등 시스템에서 이미 정의한 식별자는 사용할 수 없습니다.</li>
+    <li>길이는 제약이 없습니다.</li>
+  </ul>
+   <br>
+  다음은 식별자의 올바른 예와 잘못된 예입니다.<br>
+  <pre class="codebox">
+    myvar (O) 
+    myvar2 (O)
+    _myvar (O)
+    MyVar (0)
+    310a (X) ; 숫자로 시작.
+    move (X) ; 시스템에 이미 정의된 식별자
+    v300$ ; 밑줄 이외의 기호($) 사용
+    my var (X) ; 공백 포함 </pre>
+
+
+  <h2>2.3. 명령문의 종류</h2>
+  hrscript의 명령문에는 아래와 같이 4종류가 있습니다.<br>
+  <ul>
+    <li>프로시져 (procedure)</li>
+    <li>대입문 (assignment)</li>
+    <li>주석문 (comment)</li>
+    <li>레이블 (label)</li>
+  </ul>
+  <br>
+  <h3>2.3.1. 프로시져</h3>
+  프로시져는 명령어와 0~N개의 매개변수(parameter)들로 구성됩니다.
+  <pre class="codebox">
+    move P,po3,spd=80%,accu=1,tool=3 until do33</pre>
+
+  프로시져 매개변수는 아래와 같이 3가지 종류가 있습니다.
+  <table style="width: 100%" border="1">
+    <tbody>
+      <tr>
+        <th>종류</th>
+        <th>문법</th>
+        <th>예제</th>
+      </tr>
+      <tr>
+        <td class="vert">위치(position) 매개변수</td>
+        <td>&lt;value&gt;</td>
+        <td>P, po3</td>
+      </tr>
+      <tr>
+        <td class="vert">키워드(keyword) 매개변수</td>
+        <td>&lt;keyword&gt; = &lt;value&gt;</td>
+        <td>spd=80%, accu=1, tool=3</td>
+      </tr>
+      <tr>
+        <td class="vert">전치사(preposition) 매개변수</td>
+        <td>&lt;preposition&gt;&nbsp; &lt;value&gt;</td>
+        <td>until do33</td>
+      </tr>
+    </tbody>
+  </table>
+
+  위치매개변수는 몇 번째에 위치하는지에 따라 그 역할이 결정되므로, 위치가 바뀌어서는 안 되며,프로시져의 가장 앞 부분에 있어야
+  합니다. 키워드 매개변수는 위치매개변수 다음에 있어야 하지만, 키워드 매개변수들 간의 순서는 동작에 영향을 주지 않습니다.
+  전치사 매개변수는 맨 마지막에 배치됩니다.
+
+  <br>
+  <h3> 2.3.2. 대입문</h3>
+  대입문은 좌변과 대입 연산자(=), 우변으로 구성됩니다. 좌변(lvalue)는 반드시 값을 저장할 수 있는 변수여야 합니다.
+  상수나 수식은 허용되지 않습니다.
+  우변(rvalue)은 상수, 변수, 수식이 모두 허용됩니다.<br>
+
+  <pre class="codebox">
+    height=(500+margin)/2</pre>
+
+  <h3> 2.3.3. 주석문</h3>
+  job 프로그램의 내용을 이해하기 쉽도록 설명하는데 사용합니다. 주석문은 실행 되더라도 아무 동작도 수행되지 않습니다. 아래와 같이 해시
+  기호(#) 뒤에 설명을 붙이는 형식입니다. 하나의 명령문으로서 사용할 수도 있고 다른 명령문 뒤에 붙일 수도 있습니다.<br>
+  <pre class="codebox">
+        # robot has to wait sensor2 input
+    var work_w,work_h&nbsp; # 작업물의 너비와 높이 </pre>
+
+  <h3> 2.3.4. 레이블</h3>
+  goto 문에 의해 이동할 목표 지점을 표시합니다. 별표(*)와 식별자로 구성됩니다.<br>
+
+
+  <h2>2.4. 첫 번째 프로그램 - Hello, World !</h2>
+  티치펜던트 화면에 문자열을 출력하는 간단한 job 프로그램을 작성해봅시다. 새로운 job을 생성한 후, 아래와 같이 print문을
+  기록하고, "Hello, World !"라는 문자열 파라미터를 붙입시다.<br>
+  
+  <pre class="codebox">
+    print "Hello, World !"</pre>
+  print명령문은 티치펜던트의 job panel 하단에 값을 출력할 때 사용합니다. 이제 프로그램을 실행하면 job panel 하단에
+  Hello, World라는 문자열이 출력되는 것을 볼 수 있습니다.<br>
+
+
+
+  <h2>2.5 자료형 (type)</h2>
+  <h3>2.5.1. 문자열 자료형</h3>
+  앞 절의 첫 프로그램에서 print 문의 파라미터로서 "Hello, World" 라는 데이터를 사용했는데 이것은 문자열 자료형입니다.
+  문자열 자료형의 값은 큰 따옴표로 시작하고 끝납니다. 문자열 길이의 제한은 없습니다.<br>
+  <pre class="codebox">
+    print "Welcome to the Robot World." </pre>
+  문자열 내의 따옴표 혹은 특수 문자를 표현하기 위해 역슬래시(\)로 시작하는 시퀀스가 사용됩니다. 이러한 시퀀스를
+  이스케이프(escape) 문자라고 합니다.<br>
+  지원되는 이스케이프 문자는 아래 표와 같습니다.
+  <table style="width: 100%" border="1">
+    <tbody>
+      <tr>
+        <td class="vert">"</td>
+        <td>큰 따옴표 (double quote)</td>
+      </tr>
+      <tr>
+        <td class="vert">\\</td>
+        <td>역 슬래시 (backslash)</td>
+      </tr>
+      <tr>
+        <td class="vert">\t</td>
+        <td>탭 (tab)</td>
+      </tr>
+      <tr>
+        <td class="vert">\n</td>
+        <td>탭 (tab)</td>
+      </tr>
+    </tbody>
+  </table>
+  <pre class="codebox">
+    print "Message:\nPlease, press \"OK\"button."
+    
+    출력결과
+    Message:
+    Please, press "OK" button. </pre>
+
+
+  <h3>2.5.2. 숫자 자료형</h3>
+  숫자 자료형은 정수나 실수를 보관합니다.숫자 자료형도 있습니다. print 문으로 출력해봅시다. 아래 예와 같이 print 문에 여러
+  개의 값을 쉼표(,)로 구분하여 나열하면, 각각의 값이 공백으로 구분되어 출력됩니다.<br>
+  <pre class="codebox">
+    280
+    3.141592
+    -99
+    
+    print 280, -99 </pre>
+  시스템 내부적으로는 정수와 실수를 따로 구분해서 처리합니다. 각각의 데이터 크기는 아래와 같습니다.
+  <table style="width: 100%" border="1">
+    <tbody>
+      <tr>
+        <th>데이터 형</th>
+        <th>데이터 크기 (바이트)</th>
+      </tr>
+      <tr>
+        <td>정수 (integer)</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>실수 (real)</td>
+        <td>8</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>2.5.3. bool 자료형</h3>
+  아래와 같은 논리, 비교연산의 결과로서 true(참)와 false(거짓)의 2가지 값만을 갖습니다.<br>
+  <pre class="codebox">
+    var x=true
+    print false and x
+    print 10 &gt; 5
+    print 10 &lt;= 5    <br>
+    출력결과
+    false
+    true
+    false </pre>
+  <br>
+  <h3>2.5.4. 배열과 객체형</h3>
+  이외에도 배열(array)과 객체(object)형이 있습니다. 이 후, 4.1절과 4.2절에서 자세히 알아보겠습니다.
+  <br>
+
+
+  <h2>2.6. 변수</h2>
+  변수(variable)란 값을 저장하는 공간이며, 식별자 이름을 가지고 있습니다. 변수는 전역변수(global variable)와
+  지역변수(local variable)로 나뉘는데 그 차이는 뒤에서 설명하겠습니다. 일단 여기서는 지역변수로 예를 들어 설명합니다.<br>
+  <br>
+  변수는 아래와 같이 var 명령어로 만들 수 있으며 이를 변수를 정의(define)한다고 합니다. var 명령어 뒤에 여러 개의
+  식별자를 열거하여, 한꺼번에 만들 수도 있습니다. <br>
+
+  <pre class="codebox">
+      var myvar
+      var width, height, depth </pre>
+  <br>
+  변수에 값을 저장하는 것을 대입(assign)한다고 합니다. 대입은 변수를 정의하면서 할 수도 있고, 정의한 후에 할 수도 있습니다.
+  정의할 때 대입을 같이 하지 않으면 기본적으로 숫자 값 0을 갖게 됩니다.<br>
+  <br>
+  var myvar=0 var message, width=200 message="Invalid input value" <br>
+  대입을 할 때 대입연산자(=)를 사용했습니다. HRScript에서 = 는 같다는 뜻이 아니라, 연산자 우변의 값을 좌변의 변수에
+  대입한다는 의미입니다. 이제 변수에 저장된 값을 print 문으로 출력해 봅시다.<br>
+  <br>
+  <pre class="codebox">
+      var myvar=0
+      var message, width=200
+      message="Invalid input value"
+      print width, message</pre>
+  <br>
+  이미 값이 대입된 변수에 다른 값을 대입할 수도 있습니다. 갖고 있는 값이 변할 수 있기 때문에 변수(variable)이라고 부르는
+  것입니다.<br>
+  <br>
+  <pre class="codebox">
+      var width=200
+      width=300</pre>
+
+
+  <h2>2.7. 2진수와 16진수</h2>
+  앞에서 예를 든 숫자형 값들은 모두 10진수로 해석됩니다. 2진수나 16진수 값도 표현할 수 있는데 아래와 같이 각각 0b와
+  0x접두어를 붙여주면 됩니다.<br>
+  <br>
+
+  <pre class="codebox">
+      var binary = 0b10010011
+      var hexadecimal = 0xFF4A38C0</pre>
+
+
+  <h2>2.8. 연산자와 수식</h2>
+  아래의 예를 보면 숫자 값 500에 변수 margin을 더한 후 2로 나누어 height라는 변수에 대입하고 있습니다.<br>
+  <br>
+
+  <pre class="codebox">
+      var height, margin=10
+      height=(500+margin)/2
+      print height</pre>
+  <br>
+  height에는 수식의 결과 값인 255가 대입된 것을 print문으로 확인할 수 있습니다.<br>
+  이와 같이 값이나 변수인 피연산자(operand)들을 다양한 연산자(operator)로 연결하여 수식(expression)을 작성할 수
+  있고 그 결과를 변수에 대입하거나, 명령문의 파라미터로 사용할 수 있습니다.<br>
+  <br>
+  아래와 같이 덧셈과 곱셈을 괄호없이 쓰면 어떤 연산이 먼저 수행될까요? 덧셈, 뺄셈보다 곱셈, 나눗셈을 먼저 한다는 걸 알고 있지요?
+  이처럼 연산자들 사이에는 수행되는 순서가 있으며 이를 연산자 우선순위(operator precedence)라고 합니다. 곱셈의 우선순위가
+  덧셈보다 높기 때문에 뒤에 있지만 먼저 수행되는 것입니다.<br>
+  <br>
+  print 10+10*2<br>
+  <br>
+  문자열에 대해서도 + 연산자를 사용하면 문자열들이 연결(concatenate)됩니다.<br>
+  <br>
+  <pre class="codebox">
+      var name="axis1", type="rotational"
+      print name + ":" + type</pre>
+  <br>
+  HRScript가 지원하는 연산자는 아래와 같습니다. 위에 있을수록 연산자 우선순위가 높습니다. (즉, 먼저 수행됩니다.)<br>
+  <br>
+
+
+  <table>
+    <tbody>
+      <tr>
+        <th>
+          연산자
+        </th>
+        <th>
+          의미
+        </th>
+        <th>
+          예
+        </th>
+      </tr>
+      <tr>
+        <td>
+          ( )
+        </td>
+        <td>
+          괄호 (grouping)
+        </td>
+        <td>
+          (10+10)*2 ; 40
+        </td>
+      </tr>
+      <tr>
+        <td>
+          [ ]
+        </td>
+        <td>
+          배열 요소 접근
+        </td>
+        <td>
+          arr[3]
+        </td>
+      </tr>
+      <tr>
+        <td>
+          **
+        </td>
+        <td>
+          승 (exponentiation)
+        </td>
+        <td>
+          10**3 ; 1000
+        </td>
+      </tr>
+      <tr>
+        <td>
+          +x, -x
+        </td>
+        <td>
+          부호 (sign)
+        </td>
+        <td>
+          -300
+        </td>
+      </tr>
+      <tr>
+        <td>
+          *, /, mod
+        </td>
+        <td>
+          곱셈, 나눗셈, 나머지
+        </td>
+        <td>
+          300/3 ; 100, 8 mod 3 ; 2
+        </td>
+      </tr>
+      <tr>
+        <td>
+          +, -
+        </td>
+        <td>
+          덧셈, 뺄셈
+        </td>
+        <td>
+          300-100 ; 200
+        </td>
+      </tr>
+      <tr>
+        <td>
+          ~
+        </td>
+        <td>
+          bitwise NOT
+        </td>
+        <td>
+          ~0b11010010
+          ; 0b11111111111111111111111100101101
+        </td>
+      </tr>
+      <tr>
+        <td>
+          &amp;
+          ^
+          |
+          &lt;&lt;&nbsp;
+          &gt;&gt;&nbsp;
+        </td>
+        <td>
+          bitwise AND<br>
+          bitwise XOR<br>
+          bitwise OR<br>
+          shift left<br>
+          shift right (부호유지)
+        </td>
+        <td>
+          0b11010010 &amp; 0b11110000 ; 0xd0
+          0b11010010 ^ 0b11110000 ; 0x22
+          0b11010010 | 0b11110000 ; 0xf2
+          0b11010010 &lt;&lt; 2 ; 0b1101001000
+          0b11010010 &gt;&gt; 2 ; 0b00110100
+        </td>
+      </tr>
+      <tr>
+        <td>
+          &lt;, &lt;=, &gt;, &gt;=,
+          !=, ==
+        </td>
+        <td>
+          비교연산<br>
+          !=는 다르다.<br>
+          ==는 같다.
+        </td>
+        <td>
+          30 &lt;= 29 ; false
+          response != "ok"
+        </td>
+      </tr>
+      <tr>
+        <td>
+          not x
+        </td>
+        <td>
+          논리연산 NOT
+        </td>
+        <td>
+          not error_state
+        </td>
+      </tr>
+      <tr>
+        <td>
+          and
+          or
+        </td>
+        <td>
+          논리연산 AND<br>
+          논리연산 OR
+        </td>
+        <td>
+          height&gt;100 and invert==false
+          timeout or work_count&gt;3
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <br>
+  피연산자가 수치나 bool값일 경우, 비교연산과 논리연산의 결과는 bool자료형이며, 나머지 연산의 결과 형은 숫자 자료형입니다.<br>
+  <br>
+  bool형의 피연산자를 비교연산자 없이 그대로 쓰면, 그 값이 true와 같은지를 뜻합니다. 예를 들어 아래의 두 행은 의미가 같습니다.<br>
+  <br>
+
+  <pre class="codebox">
+  var result= timeout
+  var result= (timeout==true)</pre>
+
+  <br>
+  문자열에 대해 사용할 수 있는 연산자는 덧셈(+)과 비교연산(!=, ==), 대입연산(=)입니다. 문자열 덧셈은 피연산자 문자열들을
+  연결(concatenate)하며, 앞서 예를 보인 바 있습니다.<br>
+  비교연산은 문자열이 다른지 같은지를 판단합니다.<br>
+  <br>
+  <pre class="codebox">
+  var response="ok"
+  print response=="ok"
+  print response=="ng"</pre>
+
+  <br>
+  간혹, 연산과정에서 피연산자의 자료형이 자동으로 바뀌는 경우도 있습니다.<br>
+  논리연산자의 피연산자로 수치를 사용할 경우, 수치가 0이면 false, 0이 아니면 true로 간주합니다.<br>
+  <br>
+  <pre class="codebox">
+  var count_a=1, count_b=0, height=100
+  print count_a and height&gt;99
+  print count_b and height&gt;99</pre>
+  <br>
+  bitwise NOT과 shift left/right는 32bit 길이를 기반으로 계산합니다.<br>
+   
+
+  <h2>2.9. 함수</h2>
+  각도 60 를 radian값으로 변환하려면 어떻게 해야 할까요? 혹은, 변수 mystr이 담고 있는 문자열의 길이를 알아내려면
+  어떻게 해야 할까요?<br>
+  HRScript는 매개변수로 입력을 받아 어떤 처리를 한 후 결과값을 리턴해주는 여러가지 함수(function)를 제공합니다.<br>
+  함수는 아래와 같이 수식의 일부로서 사용할 수 있습니다.<br>
+  <br>
+  <pre class="codebox">
+    var dg=60, rd
+    rd=deg2rad(dg)
+
+    var limit=40, message="Input your code number"
+    var validity= len(message) &lt; limit</pre>
+
+  <br>
+  HRScript에서 제공되는 함수의 목록은 아래와 같습니다. (각 표는 이름 정렬순입니다.)<br>
+  <br>
+
+  <h3>2.9.1. 수학 함수</h3>
+
+
+  <table>
+    <tbody>
+      <tr>
+        <th>
+          함수
+        </th>
+        <th>
+          설명
+        </th>
+        <th>
+          사용 예
+        </th>
+        <th>
+          결과
+        </th>
+      </tr>
+      <tr>
+        <td>
+          abs(a)
+        </td>
+        <td>
+          a의 절대값 (absolute) 을 리턴합니다.
+        </td>
+        <td>
+          abs(-300)
+        </td>
+        <td>
+          300
+        </td>
+      </tr>
+      <tr>
+        <td>
+          acos(a)
+        </td>
+        <td>
+          a의 arc cosine값을 radian 형식으로 리턴합니다.
+        </td>
+        <td>
+          acos(0.5)
+        </td>
+        <td>
+          1.0472
+        </td>
+      </tr>
+      <tr>
+        <td>
+          asin(a)
+        </td>
+        <td>
+          a의 arc sige 값을 radian 형식으로 리턴합니다.
+        </td>
+        <td>
+          asin(0.5)
+        </td>
+        <td>
+          0.5236
+        </td>
+      </tr>
+      <tr>
+        <td>
+          atan(a)
+        </td>
+        <td>
+          a의 arctangent 값을 radian 형식으로 리턴합니다.
+        </td>
+        <td>
+          atan(0.5)
+        </td>
+        <td>
+          0.4636
+        </td>
+      </tr>
+      <tr>
+        <td>
+          atan2(a, b)
+        </td>
+        <td>
+          y길이가 a, x길이가 b인 삼각형의 arctangent 값을 radian 형식으로 리턴합니다.
+        </td>
+        <td>
+          atan2(2,1)
+        </td>
+        <td>
+          1.1071
+        </td>
+      </tr>
+      <tr>
+        <td>
+          cos(r)
+        </td>
+        <td>
+          radian 형식의 a의 cosine 값을 리턴합니다.
+        </td>
+        <td>
+          cos(3.1415)
+        </td>
+        <td>
+          -1
+        </td>
+      </tr>
+      <tr>
+        <td>
+          deg2rad(d)
+        </td>
+        <td>
+          degree 형식의 d의 radian 값을 리턴합니다.
+        </td>
+        <td>
+          deg2rad(-90)
+        </td>
+        <td>
+          -1.570796
+        </td>
+      </tr>
+      <tr>
+        <td>
+          dist(x, y)
+        </td>
+        <td>
+          원점에서 (x, y) 좌표까지 의 유클리드 거리를 리턴합니다.
+        </td>
+        <td>
+          dist(3.5,10)
+        </td>
+        <td>
+          10.59481
+        </td>
+      </tr>
+      <tr>
+        <td>
+          max(a, b)
+        </td>
+        <td>
+          a와 b중 큰 값을 리턴합니다.
+        </td>
+        <td>
+          max(-1.23, -3)
+        </td>
+        <td>
+          -1.23
+        </td>
+      </tr>
+      <tr>
+        <td>
+          min(a, b)
+        </td>
+        <td>
+          a와 b중 작은 값을 리턴합니다.
+        </td>
+        <td>
+          max(-1.23, -3)
+        </td>
+        <td>
+          -3
+        </td>
+      </tr>
+      <tr>
+        <td>
+          near(a, b[,e])
+        </td>
+        <td>
+          실수값 a와 b의 차이가 e보다 작거나 같으면 1, 크면 0을 리턴합니다.
+        </td>
+        <td>
+          near(0.005, 0.0058)
+          near(0.005, 0.006)
+          near(0.005, 0.006, 0.1)
+        </td>
+        <td>
+          1
+          0
+          1
+        </td>
+      </tr>
+      <tr>
+        <td>
+          rad2deg(r)
+        </td>
+        <td>
+          radian 형식의 r의 degree값을 리턴합니다.
+        </td>
+        <td>
+          rad2deg(1.570796)
+        </td>
+        <td>
+          90
+        </td>
+      </tr>
+      <tr>
+        <td>
+          sin(r)
+        </td>
+        <td>
+          radian 형식의 r의 sine 값을 리턴합니다.
+        </td>
+        <td>
+          sin(1.5*3.1415)
+        </td>
+        <td>
+          -1
+        </td>
+      </tr>
+      <tr>
+        <td>
+          sqr(a)
+        </td>
+        <td>
+          a의 제곱근(square root)을 리턴합니다.
+        </td>
+        <td>
+          sqr(16)
+          sqr(0)
+        </td>
+        <td>
+          4
+          0
+        </td>
+      </tr>
+      <tr>
+        <td>
+          tan(r)
+        </td>
+        <td>
+          radian 형식의 r의 tangent 값을 리턴합니다.
+        </td>
+        <td>
+          tan(3.141592/4)
+        </td>
+        <td>
+          0.9999
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+
+
+
+  <h3>2.9.2. 문자열 함수</h3>
+  var str="hello, world"가 실행된 상태에서의 예<br>
+  ​
+  <table>
+    <tbody>
+      <tr>
+        <th>
+          함수
+        </th>
+        <th>
+          설명
+        </th>
+        <th>
+          사용 예
+        </th>
+        <th>
+          결과
+        </th>
+      </tr>
+      <tr>
+        <td>
+          bin(a)
+        </td>
+        <td>
+          수치 a의 2진 표현 문자열을 리턴합니다.
+        </td>
+        <td>
+          bin(0b0010)
+        </td>
+        <td>
+          "10"
+        </td>
+      </tr>
+      <tr>
+        <td>
+          chr(a)
+        </td>
+        <td>
+          ASCII코드 a인 문자를 문자열형으로 리턴합니다.
+        </td>
+        <td>
+          chr(65)
+        </td>
+        <td>
+          "A"
+        </td>
+      </tr>
+      <tr>
+        <td>
+          double(s)
+        </td>
+        <td>
+          실수 문자열s의 실수형값을 리턴합니다.
+          (해석되는 위치까지만 해석하고 나머지는 버림)
+        </td>
+        <td>
+          double("29.38E-2")
+        </td>
+        <td>
+          0.2938
+        </td>
+      </tr>
+      <tr>
+        <td>
+          hex(a)
+        </td>
+        <td>
+          수치 a의 16진 표현 문자열을 리턴 합니다.
+        </td>
+        <td>
+          hex(0x7A2F)
+        </td>
+        <td>
+          "7A2F"
+        </td>
+      </tr>
+      <tr>
+        <td>
+          int(s)
+        </td>
+        <td>
+          정수 문자열s의 정수형값을 리턴합니다.
+          (해석되는 위치까지만 해석하고 나머지는 버림)
+        </td>
+        <td>
+          int("13.25")
+          int("29.38E-2")
+        </td>
+        <td>
+          13
+          29
+        </td>
+      </tr>
+      <tr>
+        <td>
+          left(s, n)
+        </td>
+        <td>
+          문자열 s의 앞 부분 n개의 문자로 된 문자열을 리턴합니다.
+        </td>
+        <td>
+          left(str, 3)
+        </td>
+        <td>
+          "hel"
+        </td>
+      </tr>
+      <tr>
+        <td>
+          len(s)
+        </td>
+        <td>
+          s가 문 자열이면 문 자열의 길 이를 리 턴합니다.
+          s가 배 열이면 배 열의 요 소 개 수를 리 턴합니다.
+        </td>
+        <td>
+          len("HELLO")
+          len([20, 30, 80])
+        </td>
+        <td>
+          5
+          3
+        </td>
+      </tr>
+      <tr>
+        <td>
+          mid(s, i, n)
+        </td>
+        <td>
+          문자열 s의 i번 째 문자부터 n개의 문자로 된 문자열을 리턴합니다. (첫 문자 위치는 0.)
+        </td>
+        <td>
+          mid(str, 3, 5)
+        </td>
+        <td>
+          "lo, w"
+        </td>
+      </tr>
+      <tr>
+        <td>
+          mirror(s)
+        </td>
+        <td>
+          문자열 s를 역전한 문자열을 리턴합니다.
+        </td>
+        <td>
+          mirror("HELLO")
+        </td>
+        <td>
+          "OLLEH"
+        </td>
+      </tr>
+      <tr>
+        <td>
+          right(s, n)
+        </td>
+        <td>
+          문자열 s의 뒷부분 n개의 문자로 된 문자열을 리턴합니다.
+        </td>
+        <td>
+          right(str, 3)
+        </td>
+        <td>
+          "rld"
+        </td>
+      </tr>
+      <tr>
+        <td>
+          str(a)
+        </td>
+        <td>
+          수치 a의 10진 표현 문자열을 리턴합니다.
+        </td>
+        <td>
+          str(13.25)
+        </td>
+        <td>
+          13.250000
+        </td>
+      </tr>
+      <tr>
+        <td>
+          strops(s, p)
+        </td>
+        <td>
+          s문자열 내에 p문 자열과 일치하는 최초의 위치를 리턴합니다.(첫 문자 위치는 0. 없으면 -1.)
+        </td>
+        <td>
+          strpos(str, "llo")
+          strpos(str, "hi")
+        </td>
+        <td>
+          2
+          -1
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+
+
+
+  <h3>2.9.3. 날짜, 시간 함수</h3>
+
+  <table>
+    <tbody>
+      <tr>
+        <th>
+          함수
+        </th>
+        <th>
+          설명
+        </th>
+        <th>
+          사용 예
+        </th>
+        <th>
+          결과
+        </th>
+      </tr>
+      <tr>
+        <td>
+          date( )
+        </td>
+        <td>
+          현재의 날짜를 문자열 형으로 리턴합니다.
+          (YYYY-MM-DD형식)
+        </td>
+        <td>
+          date( )
+        </td>
+        <td>
+          "2019-04-17"
+        </td>
+      </tr>
+      <tr>
+        <td>
+          time( )
+        </td>
+        <td>
+          현재의 시간을 문자열 형으로 리턴합니다.
+          (HH:MM:SS형식)
+        </td>
+        <td>
+          time( )
+        </td>
+        <td>
+          "08:48:14"
+        </td>
+      </tr>
+      <tr>
+        <td>
+          timer( )
+        </td>
+        <td>
+          전원투입 시로부터 경과한 시간을 초(sec) 단위로 리턴합니다.
+        </td>
+        <td>
+          timer( )
+        </td>
+        <td>
+          2796.37
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+
+  <h3>2.9.4. 생성자 함수</h3>
+  <br>
+  매개변수를 입력받아 새로운 객체를 생성하여 리턴해주는 함수입니다.<br>
+  ​
+  ​​
+  <table>
+    <tbody>
+      <tr>
+        <th>
+          함수
+        </th>
+        <th>
+          설명
+        </th>
+        <th>
+          사용 예
+        </th>
+        <th width="15%">
+          결과
+        </th>
+      </tr>
+      <tr>
+        <td>
+          Array(n)
+          Array(a, b, c)
+        </td>
+        <td>
+          요소 n개의 배열을 생성해 리턴합니다. 요소의 초기값은 0입 니다.
+          인수를 2개 이상 지정하면 다차원 배열이 생성됩니다.
+          4.1절을 참조하십시오.
+        </td>
+        <td>
+          Array(900)
+          Array(3,4)
+        </td>
+        <td>
+          배열[900]
+          배열[3][4]
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Pose(요소)
+        </td>
+        <td>
+          포즈 객체를 생성해 리턴합니다.
+          5.1절 을 참 조하십시오.
+        </td>
+        <td>
+        </td>
+        <td>
+          포즈 객체
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Shift(요소)
+        </td>
+        <td>
+          시프트 객체를 생성해 리턴합니다.
+          5.2절을 참조하십시오.
+        </td>
+        <td>
+        </td>
+        <td>
+          시프트 객체
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+
+
+  <h3>2.9.5. 기타 함수</h3>
+
+  <table>
+    <tbody>
+      <tr>
+        <th>
+          함수
+        </th>
+        <th>
+          설명
+        </th>
+        <th>
+          사용 예
+        </th>
+        <th width="15%">
+          결과
+        </th>
+      </tr>
+      <tr>
+        <td>
+          cpo(crd, mode)
+        </td>
+        <td>
+          로봇이 취하고 있는 현재 자세(current pose)를 crd좌표계로 리턴합니다.
+          crd 인수로 사용할 수 있는 값는 5.1절의 표를 참조하십시오.
+          mode가 "cmd"이면 지령값, "cur"이면 현재값입니다.
+          crd, mode 파라미터를 생략 가능하며 디폴트값은 각각 &ldquo;base&rdquo;, &rdquo;cur&rdquo; 입니다.
+        </td>
+        <td>
+          cpo("joint", "cmd")
+        </td>
+        <td>
+          로봇의 지령값을 축좌표계로 보관하는 포즈<sup>*</sup>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          mkucs(n,po)
+          mkucs(n,po1,po2<br /> ,po3)
+        </td>
+        <td>
+          n번 사용자좌표계 객체를 생성하여 등록합니다.
+          5.5절 을 참 조하십시오.
+        </td>
+        <td>
+        </td>
+        <td>
+          0 : OK
+          &lt;0 : 에러코드
+        </td>
+      </tr>
+      <tr>
+        <td>
+          result()
+        </td>
+        <td>
+          일부 프로시져는 수행 결과를 확인해야 할 경우가 있습니다. 프로시져 수행 직후 result( ) 함수를 호출하면, 수행 결과를 리턴 받을 수 있습니다.
+        </td>
+        <td>
+          result()
+        </td>
+        <td>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  * 포즈(pose)는 로봇의 자세 혹은 툴 끝의 위치를 나타내는 데이터형입니다. 이후의 5.1절에서 자세히 설명합니다.<br>
+  <br>
+
+</body>
+
+</html>
