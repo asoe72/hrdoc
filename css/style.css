@@ -78,7 +78,7 @@ td.vert {
 /* ----------------------------------------------------- */
 /* box */
 
-pre.codebox, xmp.codebox {
+pre.codebox {
     border: 1px solid rgb(73, 178, 141);
     line-height: 2em;
     width: 100%;
@@ -137,6 +137,18 @@ ol li::before {
     margin-left: -1.3em;
 }
 
+ul {
+    list-style: none;
+}
+
 ul li {
     line-height: 2em;
+}
+
+ul li::before {
+    content: "\2022  ";
+    font-size: 14pt;
+    font-weight: bold;
+    color: rgb(73, 178, 141);
+    margin-left: -1.3em;
 }
