@@ -1,0 +1,141 @@
+﻿/**
+    @date: 	2021-01-06
+    @author: Hyundai Robototics Co., Ltd. choi, won-hyuk (asoe72@hyundai-robotics.com)
+    @brief: Command Help Editor for Hi6 Robot Controller
+*/
+
+@page {
+    size: A4;
+    margin-top: 20mm;
+    margin-bottom: 20mm;
+    margin-left: 20mm;
+    margin-right: 20mm;
+}
+
+@page:first {
+	@top-right {
+        content: none;
+	}
+	@bottom-left {
+        content: none;
+    }
+	@bottom-right {
+        content: none;
+    }
+	@bottom-right-corner {
+        content: none;
+    }
+}
+
+@page:left {
+    @top-left {
+        content: string(series-run);
+        font-size: 9pt;
+        color: rgb(128,128,128);
+    }
+    @bottom-right {
+        content: string(publisher-run);
+        font-size: 9pt;
+        color: rgb(128,128,128);
+    }
+    @bottom-left {
+        content: "_" string(title);
+        font-size: 9pt;
+        color: rgb(128,128,128);
+    }
+    @bottom-left-corner {
+        content: counter(page);
+        font-size: 9pt;
+        color: rgb(161, 142, 142);
+    }
+}
+
+@page:right {
+    @top-right {
+        content: string(title-run);
+        font-size: 9pt;
+        color: rgb(128,128,128);
+    }
+    @bottom-right {
+        content: string(h2-run);
+        margin: 0pt;
+        padding-right: 10pt;
+        font-size: 9pt;
+        color: rgb(128,128,128);
+    }
+    @bottom-right-corner {
+        content: counter(page);
+        font-size: 9pt;
+        color: rgb(128,128,128);
+    }
+}
+
+@media print {
+	.page-break-b { page-break-before: always; }
+	.page-break, h1 { page-break-after: always; }
+    h2 { string-set: h2-run content(text); }
+	#info-series { string-set: series-run content(text); }
+	#info-title { string-set: title-run content(text); }
+    #info-publisher { string-set: publisher-run content(text); }
+}
+
+.book-cover {
+    position: absolute;
+    top: -20mm;
+    left: -20mm;
+    width: 21.5cm;    /* A4 */
+    height: 29.7cm;
+    z-index: -1;
+}
+
+.book-series {
+    padding-top: 2.6cm;
+	padding-left: 2cm;
+	line-height: 0.5em;
+    color: rgb(0,176,80);
+    font-size: 20pt;
+}
+
+.book-title {
+    padding-left: 2cm;
+    line-height: 0.75em;
+    font-size: 30pt;
+    font-weight: 600;
+}
+
+#toc li a::after{
+    content: target-counter(attr(href), page);
+    float: right;
+}
+
+.book-tail-addr {
+    position: absolute;
+    top: 20cm;
+    font-size: 10pt;
+    line-height: 1.5em;
+}
+
+h1 {
+    color: rgb(0,176,80);
+    margin-bottom: 4px;
+    font-size: 25pt;
+}
+
+h2 {
+    color: rgb(0,176,80);
+    margin-bottom: 4px;
+    font-size: 20pt;
+}
+
+h3 {
+    color: rgb(0,176,80);
+    margin-bottom: 4px;
+    font-size: 16pt;
+}
+
+hr {
+    margin-top: 0px;
+    border-top: none;
+    border-color: rgb(0,176,80);
+    height: 1px;
+}

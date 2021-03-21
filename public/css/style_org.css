@@ -53,6 +53,7 @@ table {
 
 th {
     padding: 0.4em;
+    border: 1px solid #999999;
     background-color: rgb(230, 255, 224);
     color: black;
 }

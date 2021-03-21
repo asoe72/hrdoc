@@ -289,6 +289,7 @@
   HRScript가 지원하는 연산자는 아래와 같습니다. 위에 있을수록 연산자 우선순위가 높습니다. (즉, 먼저 수행됩니다.)<br>
   <br>
 
+  <div class='page-break-b'></div>
 
   <table>
     <tbody>
@@ -296,7 +297,7 @@
         <th>
           연산자
         </th>
-        <th>
+        <th width="25%">
           의미
         </th>
         <th>
@@ -389,7 +390,7 @@
           &lt;&lt;&nbsp;
           &gt;&gt;&nbsp;
         </td>
-        <td>
+        <td width="25%">
           bitwise AND<br>
           bitwise XOR<br>
           bitwise OR<br>
@@ -397,10 +398,10 @@
           shift right (부호유지)
         </td>
         <td>
-          0b11010010 &amp; 0b11110000 ; 0xd0
-          0b11010010 ^ 0b11110000 ; 0x22
-          0b11010010 | 0b11110000 ; 0xf2
-          0b11010010 &lt;&lt; 2 ; 0b1101001000
+          0b11010010 &amp; 0b11110000 ; 0xd0<br>
+          0b11010010 ^ 0b11110000 ; 0x22<br>
+          0b11010010 | 0b11110000 ; 0xf2<br>
+          0b11010010 &lt;&lt; 2 ; 0b1101001000<br>
           0b11010010 &gt;&gt; 2 ; 0b00110100
         </td>
       </tr>
@@ -467,10 +468,11 @@
   print response=="ok"
   print response=="ng"</pre>
 
-  <br>
+  <p>
   간혹, 연산과정에서 피연산자의 자료형이 자동으로 바뀌는 경우도 있습니다.<br>
   논리연산자의 피연산자로 수치를 사용할 경우, 수치가 0이면 false, 0이 아니면 true로 간주합니다.<br>
-  <br>
+  </p>
+  
   <pre class="codebox">
   var count_a=1, count_b=0, height=100
   print count_a and height&gt;99
