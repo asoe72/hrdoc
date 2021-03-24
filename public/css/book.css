@@ -72,7 +72,7 @@
 
 @media print {
 	.page-break-b { page-break-before: always; }
-	.page-break, h1 { page-break-after: always; }
+	.page-break, h1, h2, .toc-title { page-break-before: always; }
     h2 { string-set: h2-run content(text); }
 	#info-series { string-set: series-run content(text); }
 	#info-title { string-set: title-run content(text); }
@@ -113,24 +113,6 @@
     top: 20cm;
     font-size: 10pt;
     line-height: 1.5em;
-}
-
-h1 {
-    color: rgb(0,176,80);
-    margin-bottom: 4px;
-    font-size: 25pt;
-}
-
-h2 {
-    color: rgb(0,176,80);
-    margin-bottom: 4px;
-    font-size: 20pt;
-}
-
-h3 {
-    color: rgb(0,176,80);
-    margin-bottom: 4px;
-    font-size: 16pt;
 }
 
 hr {

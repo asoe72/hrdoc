@@ -45,10 +45,15 @@ h3 {
 /* table */
 
 table {
+    break-inside: avoid;
     border-collapse: collapse;
     border: 1px solid #999999;
     margin: 2em 0em;
     width: 100%;
+}
+
+tr {
+    break-inside: avoid;
 }
 
 th {
@@ -138,6 +143,7 @@ ol li::before {
     margin-left: -1.3em;
 }
 
+/* paged.js의 TOC 출력에 문제를 일으켜서 remark 함.
 ul {
     list-style: none;
 }
@@ -152,4 +158,4 @@ ul li::before {
     font-weight: bold;
     color: rgb(73, 178, 141);
     margin-left: -1.3em;
-}
+} */
