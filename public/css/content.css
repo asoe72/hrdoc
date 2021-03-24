@@ -143,7 +143,7 @@ ol li::before {
     margin-left: -1.3em;
 }
 
-/* paged.js의 TOC 출력에 문제를 일으켜서 remark 함.
+
 ul {
     list-style: none;
 }
@@ -158,4 +158,39 @@ ul li::before {
     font-weight: bold;
     color: rgb(73, 178, 141);
     margin-left: -1.3em;
-} */
+}
+
+
+/* ----------------------------------------------------- */
+/* book-cover */
+
+.book-cover {
+    position: absolute;
+    top: -20mm;
+    left: -20mm;
+    width: 21.5cm;    /* A4 */
+    height: 29.7cm;
+    z-index: -1;
+}
+
+.book-series {
+    padding-top: 2.6cm;
+	padding-left: 2cm;
+	line-height: 0.5em;
+    color: rgb(0,176,80);
+    font-size: 20pt;
+}
+
+.book-title {
+    padding-left: 2cm;
+    line-height: 0.75em;
+    font-size: 30pt;
+    font-weight: 600;
+}
+
+.book-tail-addr {
+    position: absolute;
+    top: 20cm;
+    font-size: 10pt;
+    line-height: 1.5em;
+}
