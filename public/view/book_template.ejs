@@ -4,32 +4,7 @@
     <head>
         <title><%= bookinfo.title %></title>
         <meta http-equiv=Content-Type content="text/html; charset=utf-8">
-        <link href="/css/style.css" type=text/css rel=stylesheet >
-        <link href="/css/content.css" type=text/css rel=stylesheet >
-        <link href="/css/book.css" type=text/css rel=stylesheet >
-        <link href="/css/interface.css" type=text/css rel=stylesheet >
-        <link href="/css/toc.css" type=text/css rel=stylesheet >
-        
-        <script src="/js/paged.polyfill.js"></script>
-        <script src="/js/toc.js"></script>
-
-		<script>
-            class handlers extends Paged.Handler {
-                constructor(chunker, polisher, caller) {
-                super(chunker, polisher, caller);
-            }
-
-            beforeParsed(content){
-				const tocTitleElements = JSON.parse('<%- bookinfo.tocTitleElements %>');	// (work-around for vscode)
-                createToc({
-                    content: content,
-                        tocElement: '#toc',
-                        titleElements: tocTitleElements
-                    });
-                }
-            }
-            Paged.registerHandlers(handlers);
-        </script>
+        <link href="../../css/book.css" type=text/css rel=stylesheet >
     </head>
     <body>
 		<%- merged_in_body %>

@@ -4,52 +4,24 @@
     <head>
         <title>HRScript 기능설명서</title>
         <meta http-equiv=Content-Type content="text/html; charset=utf-8">
-        <link href="/css/style.css" type=text/css rel=stylesheet >
-        <link href="/css/book.css" type=text/css rel=stylesheet >
-	    <link href="css/book_sub.css" type=text/css rel=stylesheet >
-        <link href="/css/interface.css" type=text/css rel=stylesheet >
-        <link href="/css/toc.css" type=text/css rel=stylesheet >
-        
-        <script src="/js/paged.polyfill.js"></script>
-        <script src="/js/toc.js"></script>
-
-		<script>
-            class handlers extends Paged.Handler {
-                constructor(chunker, polisher, caller) {
-                super(chunker, polisher, caller);
-            }
-
-            beforeParsed(content){
-				const tocTitleElements = JSON.parse('[ "h1", "h2", "h3" ]');	// (work-around for vscode)
-                createToc({
-                    content: content,
-                        tocElement: '#toc',
-                        titleElements: tocTitleElements
-                    });
-                }
-            }
-            Paged.registerHandlers(handlers);
-        </script>
+        <link href="../../css/book.css" type=text/css rel=stylesheet >
     </head>
     <body>
 		
 			
 			
             
-    <img class="book-cover" src="../../../view/image/cover.png">
-	
-	<div class="book-series">
-        Hi6 제어기
-    </div><br>
-	<div class="book-title">
-		HRScript 기능설명서
-	</div><br>
+	<div class="book-cover">
+		<img class="book-cover" src="../../view/image/cover.png">
 
-	<div id="bookinfo" style="display:none">
-		<div id="info-series">Hi6 제어기</div>
-		<div id="info-title">HRScript 기능설명서</div>
-        <div id="info-publisher">현대로보틱스</div>
+		<div class="book-series">
+			Hi6 제어기
+		</div>
+		<div class="book-title">
+			HRScript 기능설명서
+		</div>
 	</div>
+
 
     
 			
@@ -141,7 +113,7 @@
   move P,po3,spd=80%,accu=1,tool=3 until do33</pre>
 
   프로시져 매개변수는 아래와 같이 3가지 종류가 있습니다.
-  <table style="width: 100%" border="1">
+  <table>
     <tbody>
       <tr>
         <th>종류</th>
@@ -3003,15 +2975,18 @@
 			
             
     <div class="page-break"></div>
-    <div class="book-tail-addr">
-        <img src="../../../view/image/hdrobotics.png" width="320"/><br><br>
-        경기: 경기도 성남시 분당구 돌마로 43 메디파크빌딩 2 333층<br>
-        대구: 대구공역시 달성군 유가면 테크노순환로 3길 50<br>
-        울산: 울산광역시 북구 매곡산업로21 자동차조선기술관 201-5호<br>
-        중부: 충남 아산시 염치읍 송곡길 161<br>
-        광주: 광주광역시 광산구 평동산단로 170-3 B동 101호<br>
-        ARS 1588-9997 | 1 로봇영업 2 서비스영업 3 구매상담 4 고객지원 5 투자문의 6 채용 및 일반 문의<br>
-        <a href="www.hyundai-robotics.com">www.hyundai-robotics.com</a>
+
+    <div class="book-cover">
+        <div class="book-tail-addr">
+            <img src="../../view/image/hdrobotics.png" width="320" /><br><br>
+            경기: 경기도 성남시 분당구 돌마로 43 메디파크빌딩 2 333층<br>
+            대구: 대구공역시 달성군 유가면 테크노순환로 3길 50<br>
+            울산: 울산광역시 북구 매곡산업로21 자동차조선기술관 201-5호<br>
+            중부: 충남 아산시 염치읍 송곡길 161<br>
+            광주: 광주광역시 광산구 평동산단로 170-3 B동 101호<br>
+            ARS 1588-9997 | 1 로봇영업 2 서비스영업 3 구매상담 4 고객지원 5 투자문의 6 채용 및 일반 문의<br>
+            <a href="www.hyundai-robotics.com">www.hyundai-robotics.com</a>
+        </div>
     </div>
 
     

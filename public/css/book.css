@@ -1,116 +1,231 @@
-﻿/**
-    @date: 	2021-01-06
-    @author: Hyundai Robototics Co., Ltd. choi, won-hyuk (asoe72@hyundai-robotics.com)
-    @brief: Command Help Editor for Hi6 Robot Controller
+﻿/* 
+    coded by choi, won-hyuk
+    since 2021-03-14
 */
 
-@page {
-    size: A4;
-    margin-top: 20mm;
-    margin-bottom: 20mm;
-    margin-left: 20mm;
-    margin-right: 20mm;
+
+/* ----------------------------------------------------- */
+/* general */
+body {
+    font-size: 10pt;
+    font-weight: lighter;
+    font-family: '맑은 고딕'
 }
 
-@page:first {
-	@top-right {
-        content: none;
-	}
-	@bottom-left {
-        content: none;
-    }
-	@bottom-right {
-        content: none;
-    }
-	@bottom-right-corner {
-        content: none;
+@media screen {
+    body {
+        margin: 3.6em;
     }
 }
 
-@page:left {
-    @top-left {
-        content: string(series-run);
-        font-size: 9pt;
-        color: rgb(128,128,128);
-    }
-    @bottom-right {
-        content: string(publisher-run);
-        font-size: 9pt;
-        color: rgb(128,128,128);
-    }
-    @bottom-left {
-        content: "_" string(title);
-        font-size: 9pt;
-        color: rgb(128,128,128);
-    }
-    @bottom-left-corner {
-        content: counter(page);
-        font-size: 9pt;
-        color: rgb(161, 142, 142);
+p {
+    line-height: 1.5em;
+    margin-bottom: 1em;
+    padding: 0px;
+}
+
+
+/* ----------------------------------------------------- */
+/* title */
+h1 {
+    color: rgb(73, 178, 141);
+    font-size: 16pt;
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+h2 {
+    color: rgb(73, 178, 141);
+    font-size: 14pt;
+    margin-top: 2.5em;
+}
+
+h3 {
+    color: rgb(73, 178, 141);
+    font-size: 12pt;
+    margin-top: 2em;
+}
+
+
+/* ----------------------------------------------------- */
+/* table */
+
+table {
+    border-collapse: collapse;
+    border: 1px solid #999999;
+    width: 100%;
+}
+
+@media screen {
+    table {
+        break-inside: avoid;
+        margin: 5em 0em;
     }
 }
 
-@page:right {
-    @top-right {
-        content: string(title-run);
-        font-size: 9pt;
-        color: rgb(128,128,128);
-    }
-    @bottom-right {
-        content: string(h2-run);
-        margin: 0pt;
-        padding-right: 10pt;
-        font-size: 9pt;
-        color: rgb(128,128,128);
-    }
-    @bottom-right-corner {
-        content: counter(page);
-        font-size: 9pt;
-        color: rgb(128,128,128);
-    }
+tr {
+    break-inside: avoid;
 }
 
-@media print {
-	.page-break-b { page-break-before: always; }
-	.page-break, h1, h2, .toc-title { page-break-before: always; }
-    h2 { string-set: h2-run content(text); }
-	#info-series { string-set: series-run content(text); }
-	#info-title { string-set: title-run content(text); }
-    #info-publisher { string-set: publisher-run content(text); }
+th {
+    padding: 0.4em;
+    border: 1px solid #999999;
+    background-color: rgb(230, 255, 224);
+    color: black;
+}
+
+td {
+    border: 1px solid #999999;
+    padding: 0.6em;
+    font-size: 10pt;
+}
+
+td.vert {
+    background-color: rgb(230, 230, 230);
+    color: black;
+    width: 6em;
+    white-space:nowrap;
+    line-height: 1em;
+}
+
+.opentable {
+    border-collapse: collapse;
+    border: 1px solid #999999;
+}
+
+
+/* ----------------------------------------------------- */
+/* box */
+
+pre.codebox {
+    border: 1px solid rgb(73, 178, 141);
+    line-height: 2em;
+    width: 100%;
+    font-family: monospace;
+    font-size: 10pt;
+
+    /* margin: 2em 0em; */
+    padding: 0.8em 0.8em 0.8em 0.8em;
+    overflow-x: auto;
+
+    /* https://cloudless.tistory.com/106 */
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */    
+}
+
+.caution_head, .ref_head {
+    text-align: center;
+    width: 6em;
+}
+
+.caution_head {
+    background-color: yellow;
+}
+
+.ref_head {
+    background-color: lightgray;
+}
+
+
+/* ----------------------------------------------------- */
+/* image */
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2em;
+}
+
+/* ----------------------------------------------------- */
+/* list */
+
+ol {
+    counter-reset: li-counter;
+}
+
+ol li {
+    list-style: none;
+    counter-increment: li-counter;
+    line-height: 2em;
+}
+
+ol li::before {
+    content: counter(li-counter) ") ";
+    color: rgb(73, 178, 141);
+    font-weight: bold;
+    margin-left: -1.3em;
+}
+
+
+ul {
+    list-style: none;
+}
+
+ul li {
+    line-height: 2em;
+}
+
+ul li::before {
+    content: "\2022  ";
+    font-size: 14pt;
+    font-weight: bold;
+    color: rgb(73, 178, 141);
+    margin-left: -1.3em;
+}
+
+
+/* ----------------------------------------------------- */
+/* book-cover */
+
+img {
+    width: 350;
+    height: 600;
+    /* height: 150px;
+    object-fit: cover; */
+}
+
+.book-cover, .book-cover-bg {
+    /*width: 21.5cm;*/    /* A4 */
+    /* height: 29.7cm; */
+    width: 15.5cm;
+    height: 20.7cm;
 }
 
 .book-cover {
-    position: absolute;
+    
+    /*  */
     top: -20mm;
     left: -20mm;
-    width: 21.5cm;    /* A4 */
-    height: 29.7cm;
+
+    border: 3px solid #00AA00;
+}
+
+.book-cover-bg {
+    position: relative;
     z-index: -1;
 }
 
 .book-series {
-    padding-top: 2.6cm;
-	padding-left: 2cm;
-	line-height: 0.5em;
+    position: absolute;
+    top: 4.5cm;
+    left: 2.8cm;
     color: rgb(0,176,80);
     font-size: 20pt;
 }
 
 .book-title {
-    padding-left: 2cm;
-    line-height: 0.75em;
+    position: absolute;
+    top: 5.5cm;
+    left: 2.8cm;
     font-size: 30pt;
     font-weight: 600;
 }
 
-#toc li a::after{
-    content: target-counter(attr(href), page);
-    float: right;
-}
-
 .book-tail-addr {
-    position: absolute;
-    top: 20cm;
+    position: relative;
+    top: 22cm;
+    left: 0.5cm;
     font-size: 10pt;
     line-height: 1.5em;
 }
