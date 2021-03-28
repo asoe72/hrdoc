@@ -27,7 +27,7 @@ p {
 /* ----------------------------------------------------- */
 /* title */
 h1 {
-    page-break-before: always;
+    /* page-break-before: always; */
     color: rgb(73, 178, 141);
     font-size: 16pt;
     margin-top: 2em;

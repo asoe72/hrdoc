@@ -47,11 +47,13 @@ function getHtmlFromArticle(path, article)
 
 	var h1 = (article.h1) ? `<h1>${article.h1}</h1>` : "";
 	var h2 = (article.h2) ? `<h2>${article.h2}</h2>` : "";
+    var page_break = "<br class='page-break'>";
 
     var html = `
 			${h1}
 			${h2}
             ${in_body}
+            ${page_break}
     `;
     return html;
 }
