@@ -9,13 +9,8 @@
 body {
     font-size: 10pt;
     font-weight: lighter;
-    font-family: '맑은 고딕'
-}
-
-@media screen {
-    body {
-        margin: 3.6em;
-    }
+    font-family: '맑은 고딕';
+    margin: 3.6em;
 }
 
 p {
@@ -24,10 +19,15 @@ p {
     padding: 0px;
 }
 
+.page-break {
+    page-break-after: always;
+}
+
 
 /* ----------------------------------------------------- */
 /* title */
 h1 {
+    page-break-before: always;
     color: rgb(73, 178, 141);
     font-size: 16pt;
     margin-top: 2em;
@@ -178,13 +178,6 @@ ul li::before {
 /* ----------------------------------------------------- */
 /* book-cover */
 
-img {
-    width: 350;
-    height: 600;
-    /* height: 150px;
-    object-fit: cover; */
-}
-
 .book-cover, .book-cover-bg {
     /*width: 21.5cm;*/    /* A4 */
     /* height: 29.7cm; */
@@ -193,12 +186,9 @@ img {
 }
 
 .book-cover {
-    
-    /*  */
     top: -20mm;
     left: -20mm;
-
-    border: 3px solid #00AA00;
+    border: 1px solid #00AA00;
 }
 
 .book-cover-bg {
@@ -223,9 +213,7 @@ img {
 }
 
 .book-tail-addr {
-    position: relative;
-    top: 22cm;
-    left: 0.5cm;
+    padding: 5em;
     font-size: 10pt;
     line-height: 1.5em;
 }

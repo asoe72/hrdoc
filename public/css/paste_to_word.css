@@ -1,0 +1,21 @@
+﻿/* 
+    coded by choi, won-hyuk
+    since 2021-03-28
+    overriding for pasting to MS word
+*/
+
+
+/* ----------------------------------------------------- */
+/* general */
+body {
+    margin: 0em;
+}
+
+
+/* ----------------------------------------------------- */
+/* table */
+
+table {
+    width: 75%;         /* page를 벗어나는 것 방지 */
+    margin: 0em 0em;    /* 행이 높이가 커지는 것 방지 */
+}
