@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>6. 외부장치와 통신하기</title>
-  <link type="text/css" rel="stylesheet" href="../../css/content.css">
+  <link type="text/css" rel="stylesheet" href="../../css/book.css">
 </head>
 
 <body>
@@ -311,7 +311,7 @@
   <br>
   <h3>6.1.2. 예제</h3>
   아래의 사용 예를 참고하십시오.<br>
-  
+
   <pre class='codebox'>
   do2=1	            # fb0의 2번 비트출력값 켠다.
   fb2.dob3=0b00001111  	# fb2의 3번 바이트출력값을 2진 bit열로 지정
@@ -322,14 +322,14 @@
     fb3.do[idx]=1     # fb3의 출력신호 do21 ~ do29를 모두 켠다. 
   next
   fb2.do3=fb2.do7=fb2.do11=1   # fb2의 3번, 7번, 11번 출력신호를 한꺼번에 켠다.</pre>
-  
+
 
   <br>
   <h2>6.2. enet 모듈 : 이더넷 TCP/UDP 통신</h2>
 
   Hi6 제어기의 범용 이더넷 포트를 통해, 외부 장치와 이더넷 TCP 혹은 UDP 통신으로 문자열 송수신을 할 수 있습니다.<br>
   이 기능을 사용하기 위해서는 아래와 같이 enet 모듈을 import한 후, ENet 객체를 생성해야 합니다.<br>
-  
+
   <pre class='codebox'>
   import enet
   var udp=enet.ENet("udp")</pre>
@@ -357,72 +357,376 @@
 
   <br>
   <h3>6.2.1. 생성자</h3>
-  설명&nbsp;&nbsp; &nbsp;이더넷 객체를 생성합니다. 참조를 리턴합니다.<br>
-  문법&nbsp;&nbsp; &nbsp;ENet(&lt;프로토콜&gt;)<br>
-  파라미터&nbsp;&nbsp; &nbsp;프로토콜&nbsp;&nbsp; &nbsp;"tcp" : TCP 통신<br>
-  "udp" : UDP 통신&nbsp;&nbsp; &nbsp;생략하면 "udp"로 인식<br>
-  리턴값&nbsp;&nbsp; &nbsp;생성된 객체의 참조<br>
-  사용 예&nbsp;&nbsp; &nbsp;enet0 = ENet()<br>
-  var tcp = ENet("tcp")<br>
-  <br>
-  <br>
+  <table>
+    <tbody>
+      <tr>
+        <th>
+          설명
+        </th>
+        <td colspan="3">
+          이더넷 객체를 생성합니다. 참조를 리턴합니다.
+        </td>
+      </tr>
+      <tr>
+        <th>
+          문법
+        </th>
+        <td colspan="3">
+          ENet(&lt;프로토콜&gt;)
+        </td>
+      </tr>
+      <tr>
+        <th>
+          파라미터
+        </th>
+        <td>
+          프로토콜
+        </td>
+        <td>
+          "tcp" : TCP 통신
+          "udp" : UDP 통신
+        </td>
+        <td>
+          생략하면 "udp"로 인식
+        </td>
+      </tr>
+      <tr>
+        <th>
+          리턴값
+        </th>
+        <td colspan="3">
+          생성된 객체의 참조
+        </td>
+      </tr>
+      <tr>
+        <th>
+          사용 예
+        </th>
+        <td colspan="3">
+          enet0 = ENet()
+          var tcp = ENet("tcp")
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
   <h3>6.2.2. 멤버변수</h3>
-  변수명&nbsp;&nbsp; &nbsp;데이터형&nbsp;&nbsp;
-  &nbsp;설&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  명<br>
-  ip_addr&nbsp;&nbsp; &nbsp;문자열&nbsp;&nbsp; &nbsp;읽기/쓰기 가능.<br>
-  통신상대의 IP 주소를 지정하거나 얻습니다.<br>
-  open문 호출 시에만 적용됩니다.<br>
-  rport&nbsp;&nbsp; &nbsp;숫자&nbsp;&nbsp; &nbsp;읽기/쓰기 가능.<br>
-  통신상대(Remote)의 포트번호를 지정하거나 얻습니다.<br>
-  open문 호출 시에만 적용됩니다.<br>
-  lport&nbsp;&nbsp; &nbsp;숫자&nbsp;&nbsp; &nbsp;읽기/쓰기 가능.<br>
-  UDP 통신에서 사용되며, TCP 통신에서는 무시됩니다.<br>
-  제어기 자신의(Local)의 포트번호를 지정하거나 얻습니다.<br>
-  디폴트 값은 0이며(지정하지 않은 경우), 이 경우에는 자신의 포트번호는 자동 생성됩니다.<br>
-  open문 호출 시에만 적용됩니다.<br>
-  <br>
+  <table>
+    <thead>
+      <tr>
+        <th>
+          변수명
+        </th>
+        <td>
+          데이터형
+        </td>
+        <td>
+          설 명
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>
+          ip_addr
+        </th>
+        <td>
+          문자열
+        </td>
+        <td>
+          읽기/쓰기 가능.
+          통신상대의 IP 주소를 지정하거나 얻습니다.
+          open문 호출 시에만 적용됩니다.
+        </td>
+      </tr>
+      <tr>
+        <th>
+          rport
+        </th>
+        <td>
+          숫자
+        </td>
+        <td>
+          읽기/쓰기 가능.
+          통신상대(Remote)의 포트번호를 지정하거나 얻습니다.
+          open문 호출 시에만 적용됩니다.
+        </td>
+      </tr>
+      <tr>
+        <th>
+          lport
+        </th>
+        <td>
+          숫자
+        </td>
+        <td>
+          읽기/쓰기 가능.
+          UDP 통신에서 사용되며, TCP 통신에서는 무시됩니다.
+          제어기 자신의(Local)의 포트번호를 지정하거나 얻습니다.
+          디폴트 값은 0이며(지 정하지 않은 경우), 이 경우에는 자신의 포트번호는 자동 생성됩니다.
+          open문 호출 시에만 적용됩니다.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
   <h3>6.2.3. 멤버 프로시져</h3>
-  설명&nbsp;&nbsp; &nbsp;이더넷 TCP 혹은 UDP 통신을 위한 연결을 엽니다.<br>
-  문법&nbsp;&nbsp; &nbsp;&lt;ENet객체&gt;.open<br>
-  사용 예&nbsp;&nbsp; &nbsp;enet_to_sensor.open<br>
-  <br>
-  설명&nbsp;&nbsp; &nbsp;이더넷 TCP 통신을 위한 연결을 수행합니다.<br>
-  문법&nbsp;&nbsp; &nbsp;&lt;ENet객체&gt;.connect<br>
-  사용 예&nbsp;&nbsp; &nbsp;enet_to_sensor.connect<br>
-  <br>
-  설명&nbsp;&nbsp; &nbsp;이더넷 UDP 통신을 위한 연결을 닫습니다.<br>
-  문법&nbsp;&nbsp; &nbsp;&lt;ENet객체&gt;.close<br>
-  사용 예&nbsp;&nbsp; &nbsp;enet_to_sensor.close<br>
-  <br>
-  설명&nbsp;&nbsp; &nbsp;설정된 이더넷 객체로 값들을 송신합니다.<br>
-  문법&nbsp;&nbsp; &nbsp;&lt;ENet객체&gt;.send &lt;값&gt;, &lt;값&gt;, …<br>
-  파라미터&nbsp;&nbsp; &nbsp;값&nbsp;&nbsp; &nbsp;출력할 데이터 값.<br>
-  쉼표로 분리된 인수들은 공백으로 나뉘어 출력.&nbsp;&nbsp; &nbsp;모든 데이터형<br>
-  사용 예&nbsp;&nbsp; &nbsp;enet_to_sensor.send "rob:", 10, ", command:"+cmd,
-  "\n"<br>
-  <br>
-  <br>
-  설명&nbsp;&nbsp; &nbsp;설정된 이더넷 객체로 값들을 수신합니다.<br>
-  문법&nbsp;&nbsp; &nbsp;&lt;ENet객체&gt;.recv &lt;변수&gt;[, &lt;대기시간&gt;]<br>
-  파라미터&nbsp;&nbsp; &nbsp;변수&nbsp;&nbsp; &nbsp;수신된 문자열을 전달받을 변수&nbsp;&nbsp;
-  &nbsp;<br>
-  &nbsp;&nbsp; &nbsp;대기시간&nbsp;&nbsp; &nbsp;timeout 시간. 경과하면 다음 명령문으로 진행한다.<br>
-  지정하지 않으면 무한 대기한다.&nbsp;&nbsp; &nbsp;msec<br>
-  사용 예&nbsp;&nbsp; &nbsp;enet_to_sensor.recv&nbsp; msg, 5000<br>
-  <br>
-  <br>
+
+  <table>
+    <tbody>
+      <tr>
+        <th>
+          설명
+        </th>
+        <td>
+          이더넷 TCP 혹은 UDP 통신을 위한 연결을 엽니다.
+        </td>
+      </tr>
+      <tr>
+        <th>
+          문법
+        </th>
+        <td>
+          &lt;ENet객체&gt;.open
+        </td>
+      </tr>
+      <tr>
+        <th>
+          사용 예
+        </th>
+        <td>
+          enet_to_sensor.open
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <table>
+    <tbody>
+      <tr>
+        <th>
+          설명
+        </th>
+        <td>
+          이더넷 TCP 통신을 위한 연결을 수행합니다.
+        </td>
+      </tr>
+      <tr>
+        <th>
+          문법
+        </th>
+        <td>
+          &lt;ENet객체&gt;.connect
+        </td>
+      </tr>
+      <tr>
+        <th>
+          사용 예
+        </th>
+        <td>
+          enet_to_sensor.connect
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <tbody>
+      <tr>
+        <th>
+          설명
+        </th>
+        <td>
+          이더넷 UDP 통신을 위한 연결을 닫습니다.
+        </td>
+      </tr>
+      <tr>
+        <th>
+          문법
+        </th>
+        <td>
+          &lt;ENet객체&gt;.close
+        </td>
+      </tr>
+      <tr>
+        <th>
+          사용 예
+        </th>
+        <td>
+          enet_to_sensor.close
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <tbody>
+      <tr>
+        <th>
+          설명
+        </th>
+        <td colspan="3">
+          설정된 이더넷 객체로 값들을 송신합니다.
+        </td>
+      </tr>
+      <tr>
+        <th>
+          문법
+        </th>
+        <td colspan="3">
+          &lt;ENet객체&gt;.send &lt;값&gt;, &lt;값&gt;, &hellip;
+        </td>
+      </tr>
+      <tr>
+        <th>
+          파라미터
+        </th>
+        <td>
+          값
+        </td>
+        <td>
+          출력할 데이터 값.
+          쉼표로 분리된 인수들은 공백으로 나뉘어 출력.
+        </td>
+        <td>
+          모든 데이터형
+        </td>
+      </tr>
+      <tr>
+        <th>
+          사용 예
+        </th>
+        <td colspan="3">
+          enet_to_sensor.send "rob:", 10, ", command:"+cmd, "\n"
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <tbody>
+      <tr>
+        <th>
+          설명
+        </th>
+        <td colspan="3">
+          설정된 이더넷 객체로 값들을 수신합니다.
+        </td>
+      </tr>
+      <tr>
+        <th>
+          문법
+        </th>
+        <td colspan="3">
+          &lt;ENet객체&gt;.recv &lt;변수&gt;[, &lt;대기시간&gt;]
+        </td>
+      </tr>
+      <tr>
+        <th rowspan="2">
+          파라미터
+        </th>
+        <td>
+          변수
+        </td>
+        <td>
+          수신된 문자열을 전달받을 변수
+        </td>
+        <td>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          대기시간
+        </td>
+        <td>
+          timeout 시간. 경과하면 다음 명령문으로 진행한다.
+          지정하지 않으면 무한 대기한다.
+        </td>
+        <td>
+          msec
+        </td>
+      </tr>
+      <tr>
+        <th>
+          사용 예
+        </th>
+        <td colspan="3">
+          enet_to_sensor.recv msg, 5000
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
   <h3>6.2.4. 멤버 함수</h3>
-  설명&nbsp;&nbsp; &nbsp;이더넷 객체의 상태를 리턴합니다.<br>
-  문법&nbsp;&nbsp; &nbsp;&lt;ENet객체&gt;.state()<br>
-  리턴값&nbsp;&nbsp; &nbsp;1&nbsp;&nbsp; &nbsp;연결됨.<br>
-  (UDP일 때는 open만 해도 연결로 간주됩니다. TCP일 때는 open 후 connect도 수행해야 연결로 간주됩니다.)<br>
-  &nbsp;&nbsp; &nbsp;0&nbsp;&nbsp; &nbsp;연결 안됨.<br>
-  &nbsp;&nbsp; &nbsp;-1&nbsp;&nbsp; &nbsp;이더넷소켓 생성 실패<br>
-  &nbsp;&nbsp; &nbsp;-2&nbsp;&nbsp; &nbsp;이더넷장치 BIND 실패<br>
-  사용 예&nbsp;&nbsp; &nbsp;ret = enet_to_sensor.state()<br>
-  <br>
-  <br>
+
+  <table>
+    <tbody>
+      <tr>
+        <th>
+          설명
+        </th>
+        <td colspan="2">
+          이더넷 객체의 상태를 리턴합니다.
+        </td>
+      </tr>
+      <tr>
+        <th>
+          문법
+        </th>
+        <td colspan="2">
+          &lt;ENet객체&gt;.state()
+        </td>
+      </tr>
+      <tr>
+        <th rowspan="4">
+          리턴값
+        </th>
+        <td>
+          1
+        </td>
+        <td>
+          연결됨.
+          (UDP일 때는 open만 해도 연결로 간주됩니다. TCP일 때는 open 후 connect도 수행해야 연결로 간주됩니다.)
+        </td>
+      </tr>
+      <tr>
+        <td>
+          0
+        </td>
+        <td>
+          연결 안됨.
+        </td>
+      </tr>
+      <tr>
+        <td>
+          -1
+        </td>
+        <td>
+          이더넷소켓 생성 실패
+        </td>
+      </tr>
+      <tr>
+        <td>
+          -2
+        </td>
+        <td>
+          이더넷장치 BIND 실패
+        </td>
+      </tr>
+      <tr>
+        <th>
+          사용 예
+        </th>
+        <td colspan="2">
+          ret = enet_to_sensor.state()
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
   <h3>6.2.5. TCP, UDP 통신 예제</h3>
 
   <pre class='codebox'>
@@ -447,7 +751,7 @@
   print enet0.state() # 0이면 정상
   delay 1.5
   end  </pre>
-    
+
    <br>
   <h2>6.3. http_cli 모듈 : HTTP 클라이언트</h2>
   Hi6 제어기의 범용 이더넷 포트를 통해, 원격의 웹 서비스에 접근하여 HTTP 서비스를 받을 수 있습니다.<br>
@@ -465,54 +769,209 @@
   post 서비스를 요청할 때는 body 속성에 미리 전송할 데이터를 대입해두어야 하며, 원격 서버가 응답으로 보내준 데이터는 body
   속성에 보관됩니다.<br>
   delete 서비스는 body 속성을 사용하지 않습니다.<br>
-  <br>
-  <h3>6.3.1. 생성자</h3>
-  설명&nbsp;&nbsp; &nbsp;HttpCli 객체를 생성합니다. 참조를 리턴합니다.<br>
-  문법&nbsp;&nbsp; &nbsp;HttpCli()<br>
-  리턴값&nbsp;&nbsp; &nbsp;생성된 객체의 참조<br>
-  사용 예&nbsp;&nbsp; &nbsp;var cli = HttpCli()<br>
-  <br>
-  <br>
-  <h3>6.3.2. 멤버변수</h3>
-  변수명&nbsp;&nbsp; &nbsp;데이터형&nbsp;&nbsp;
-  &nbsp;설&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  명<br>
-  body&nbsp;&nbsp; &nbsp;모든 형 가능&nbsp;&nbsp; &nbsp;put과 post 요청에 실어보낼 데이터를 미리
-  넣어두어야 합니다.<br>
-  get과 post 요청의 응답이 보관됩니다.<br>
-  <br>
-  <h3>6.3.3. 멤버 프로시져</h3>
-  설명&nbsp;&nbsp; &nbsp;HTTP GET 서비스를 요청합니다.<br>
-  응답 데이터는 body 속성으로 받습니다.<br>
-  문법&nbsp;&nbsp; &nbsp;&lt;HttpCli객체&gt;.get &lt;URL 문자열&gt;<br>
-  사용 예&nbsp;&nbsp; &nbsp;var domain="http://192.168.1.200:8888"<br>
-  cli.get domain+"/setting/max_torque"<br>
-  <br>
-  설명&nbsp;&nbsp; &nbsp;HTTP PUT 서비스를 요청합니다.<br>
-  전송할 데이터는 body 속성에 미리 대입해 두어야 합니다.<br>
-  문법&nbsp;&nbsp; &nbsp;&lt;HttpCli객체&gt;.put &lt;URL 문자열&gt;<br>
-  사용 예&nbsp;&nbsp; &nbsp;var domain="http://192.168.1.200:8888"<br>
-  cli.body=500<br>
-  cli.put domain+"/setting/max_torque"<br>
-  <br>
-  설명&nbsp;&nbsp; &nbsp;HTTP POST 서비스를 요청합니다.<br>
-  전송할 데이터는 body 속성에 미리 대입해 두어야 합니다.<br>
-  응답 데이터는 body 속성으로 받습니다.<br>
-  문법&nbsp;&nbsp; &nbsp;&lt;HttpCli객체&gt;.post &lt;URL 문자열&gt;<br>
-  사용 예&nbsp;&nbsp; &nbsp;var domain="http://192.168.1.200:8888"<br>
-  cli.body={ name: "WORK #32", color: "green", state: "OK" }<br>
-  cli.post domain+"/display/update"<br>
-  <br>
-  설명&nbsp;&nbsp; &nbsp;HTTP DELETE 서비스를 요청합니다.<br>
-  body 속성은 사용되지 않습니다.<br>
-  문법&nbsp;&nbsp; &nbsp;&lt;HttpCli객체&gt;.delete &lt;URL 문자열&gt;<br>
-  사용 예&nbsp;&nbsp; &nbsp;var domain="http://192.168.1.200:8888"<br>
-  cli.delete domain+"/items/3"<br>
-  <br>
-  <br>
-  <br>
-  <h3>6.3.4. HTTP client 통신 예제</h3>
 
+
+  <h3>6.3.1. 생성자</h3>
+  <table>
+    <tbody>
+      <tr>
+        <th>
+          설명
+        </th>
+        <td>
+          HttpCli 객체를 생성합니다. 참조를 리턴합니다.
+        </td>
+      </tr>
+      <tr>
+        <th>
+          문법
+        </th>
+        <td>
+          HttpCli()
+        </td>
+      </tr>
+      <tr>
+        <th>
+          리턴값
+        </th>
+        <td>
+          생성된 객체의 참조
+        </td>
+      </tr>
+      <tr>
+        <th>
+          사용 예
+        </th>
+        <td>
+          var cli = HttpCli()
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6.3.2. 멤버 변수</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>
+          변수명
+        </th>
+        <td>
+          데이터형
+        </td>
+        <td>
+          설 명
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>
+          body
+        </th>
+        <td>
+          모든 형 가능
+        </td>
+        <td>
+          put과 post 요청에 실어보낼 데이터를 미리 넣어두어야 합니다.
+          get과 post 요청의 응답이 보관됩니다.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>6.3.3. 멤버 프로시져</h3>
+
+  <table>
+    <tbody>
+      <tr>
+        <th>
+          설명
+        </th>
+        <td>
+          HTTP GET 서비스를 요청합니다.
+          응답 데이터는 body 속성으로 받습니다.
+        </td>
+      </tr>
+      <tr>
+        <th>
+          문법
+        </th>
+        <td>
+          &lt;HttpCli객체&gt;.get &lt;URL 문자열&gt;
+        </td>
+      </tr>
+      <tr>
+        <th>
+          사용 예
+        </th>
+        <td>
+          var domain="http://192.168.1.200:8888"
+          cli.get domain+"/setting/max_torque"
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <tbody>
+      <tr>
+        <th>
+          설명
+        </th>
+        <td>
+          HTTP PUT 서비스를 요청합니다.
+          전송할 데이터는 body 속성에 미리 대입해 두어야 합니다.
+        </td>
+      </tr>
+      <tr>
+        <th>
+          문법
+        </th>
+        <td>
+          &lt;HttpCli객체&gt;.put &lt;URL 문자열&gt;
+        </td>
+      </tr>
+      <tr>
+        <th>
+          사용 예
+        </th>
+        <td>
+          var domain="http://192.168.1.200:8888"
+          cli.body=500
+          cli.put domain+"/setting/max_torque"
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <tbody>
+      <tr>
+        <th>
+          설명
+        </th>
+        <td>
+          HTTP POST 서비스를 요청합니다.
+          전송할 데이터는 body 속성에 미리 대입해 두어야 합니다.
+          응답 데이터는 body 속성으로 받습니다.
+        </td>
+      </tr>
+      <tr>
+        <th>
+          문법
+        </th>
+        <td>
+          &lt;HttpCli객체&gt;.post &lt;URL 문자열&gt;
+        </td>
+      </tr>
+      <tr>
+        <th>
+          사용 예
+        </th>
+        <td>
+          var domain="http://192.168.1.200:8888"
+          cli.body={ name: "WORK #32", color: "green", state: "OK" }
+          cli.post domain+"/display/update"
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <tbody>
+      <tr>
+        <th>
+          설명
+        </th>
+        <td>
+          HTTP DELETE 서비스를 요청합니다.
+          body 속성은 사용되지 않습니다.
+        </td>
+      </tr>
+      <tr>
+        <th>
+          문법
+        </th>
+        <td>
+          &lt;HttpCli객체&gt;.delete &lt;URL 문자열&gt;
+        </td>
+      </tr>
+      <tr>
+        <th>
+          사용 예
+        </th>
+        <td>
+          var domain="http://192.168.1.200:8888"
+          cli.delete domain+"/items/3"
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <h3>6.3.4. HTTP client 통신 예제</h3>
 
   <pre class='codebox'>
   import http_client
@@ -539,21 +998,75 @@
 
    <br>
   <h2>6.4. 티치펜던트 console bar로 입력받기</h2>
+
   <h3>6.4.1. input문</h3>
-  설명&nbsp;&nbsp;&nbsp; input문을 통해 티치펜던트의 키입력으로 문자열을 입력받아 변수에 저장합니다. 제한시간까지
-  입력되지 않으면 다음 명령문으로 진행하거나 timeout 주소로 분기합니다.<br>
-  문법&nbsp;&nbsp;&nbsp; input &lt;변수&gt;[,&lt;제한시간&gt;,&lt;timeout 주소&gt;]<br>
-  파라미터&nbsp;&nbsp;&nbsp; 변수&nbsp;&nbsp;&nbsp; 입력을 받을 변수. 숫자도 문자열 타입으로 입력받습니다.
-  수치값이 필요하면 int( )나 double( ) 함수로 변환하십시오.&nbsp;&nbsp;&nbsp; <br>
-  &nbsp;&nbsp;&nbsp; 제한시간&nbsp;&nbsp;&nbsp; 입력을 대기할 최대 제한 시간
-  (timeout)&nbsp;&nbsp;&nbsp; 산술식<br>
-  0.1~60.0 sec<br>
-  &nbsp;&nbsp;&nbsp; timeout 주소&nbsp;&nbsp;&nbsp; 제한시간 초과 시, 분기할
-  주소&nbsp;&nbsp;&nbsp; 주소<br>
-  사용 예&nbsp;&nbsp;&nbsp; input work_no<br>
-  input work_no,10<br>
-  input work_no,10,*timeout<br>
-  <br>
+
+  <table>
+    <tbody>
+      <tr>
+        <th>
+          설명
+        </th>
+        <td colspan="3">
+          input문을 통해 티치펜던트의 키입력으로 문자열을 입력받아 변수에 저장합니다. 제한시간까지 입력되지 않으면 다음 명령문으로 진행하거나 timeout 주소로 분기합니다.
+        </td>
+      </tr>
+      <tr>
+        <th>
+          문법
+        </th>
+        <td colspan="3">
+          input &lt;변수&gt;[,&lt;제 한시간&gt;,&lt;timeout 주소&gt;]
+        </td>
+      </tr>
+      <tr>
+        <th rowspan="3">
+          파라미터
+        </th>
+        <td>
+          변수
+        </td>
+        <td>
+          입력을 받을 변수. 숫자도 문자열 타입으로 입력받습니다. 수치값이 필요하면 int( )나 double( ) 함수로 변환하십시오.
+        </td>
+        <td>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          제한시간
+        </td>
+        <td>
+          입력을 대기할 최대 제한 시간 (timeout)
+        </td>
+        <td>
+          산술식
+          0.1~60.0 sec
+        </td>
+      </tr>
+      <tr>
+        <td>
+          timeout 주소
+        </td>
+        <td>
+          제한시간 초과 시, 분기할 주소
+        </td>
+        <td>
+          주소
+        </td>
+      </tr>
+      <tr>
+        <th>
+          사용 예
+        </th>
+        <td colspan="3">
+          input work_no
+          input work_no,10
+          input work_no,10,*timeout
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
   <br>
   <div class='ct'>
