@@ -51,16 +51,11 @@ h3 {
 /* table */
 
 table {
+    break-inside: avoid;
     border-collapse: collapse;
     border: 1px solid #999999;
+    margin: 5em 0em;
     width: 100%;
-}
-
-@media screen {
-    table {
-        break-inside: avoid;
-        margin: 5em 0em;
-    }
 }
 
 tr {
@@ -135,6 +130,10 @@ img {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 2em;
+}
+
+div.ct {
+    text-align: center;
 }
 
 /* ----------------------------------------------------- */

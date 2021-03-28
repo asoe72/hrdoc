@@ -5,6 +5,8 @@
 const fs = require('fs');
 const ejs = require('ejs');
 //%%const work = require("./work");
+const cheerio = require('cheerio');
+const imageSize = require('image-size')
 
 
 ///@param[in]	path	    e.g. "public/works/cmd/" or "cmd"
@@ -68,6 +70,7 @@ function getInBodyFromHtmlFile(path, rel_pathname)
     const idxEn = text.lastIndexOf('</body>');
     
     var in_body = text.substring(idxSt, idxEn);
+    in_body = adjustImgSizeForMsWord(path, in_body);
     //console.log(in_body);
 
     return in_body;
@@ -107,4 +110,64 @@ function makeFrontCoverHtml(work_dir, bookinfo)
 	console.log(cover_rendered);
 
 	fs.writeFileSync(out_dir + ftitle + ".html", cover_rendered);
+}
+
+
+///@return      수정된 in_body
+///@brief	MS word
+///         cheerio 활용
+function adjustImgSizeForMsWord(path, in_body)
+{
+    const $ = cheerio.load(in_body, null, false);
+    var imgs = $('img');
+
+    imgs.each(function() {
+        const src = $(this).attr('src');
+        const pathname = path + '/' + src;
+        const dimOrg = imageSize(pathname);
+
+        console.log(`${pathname} : W=${dimOrg.width}, H=${dimOrg.height}`);
+
+        resizeForMsWord($(this), dimOrg);
+    });
+    in_body = $.html();
+
+    return in_body;
+}
+
+
+///@param[in]   elem    img element
+///@param[in]   dimOrg  image 본래 크기 { width: (px), height: (px) }
+///@return      수정된 img가 있는지 여부
+///@brief	MS word는 img의 크기 속성에 % 단위를 인식하지 못함.
+///         pixel 단위로 다시 설정해줘야 한다.
+///         from : <img src="..." width="75%">
+///         to   : <img src="..." width="300">
+function resizeForMsWord(elem, dimOrg)
+{
+    const YPerX = dimOrg.height / dimOrg.width;
+
+    var strRate = elem.attr('width');   // "75%"
+    if(strRate == undefined) return false;
+
+    const idxEn = strRate.lastIndexOf('%');
+    if(idxEn < 0) return false;
+
+    strRate = strRate.substring(0, idxEn);    // "75"
+    const rate = Number(strRate) / 100.;    // 0.75
+
+    const fullWidthInWordPage = 600;
+    const dim = {};
+    dim.width = fullWidthInWordPage * rate;
+    dim.height = YPerX * dim.width;
+
+    dim.width = Math.round(dim.width);
+    dim.height = Math.round(dim.height);
+
+    console.log(` -> dim : W=${dim.width}, H=${dim.height}`);
+
+    elem.attr('width', dim.width);
+    elem.attr('height', dim.height);
+
+    return true;
 }
