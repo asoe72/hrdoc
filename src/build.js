@@ -73,6 +73,7 @@ function getInBodyFromHtmlFile(path, rel_pathname)
     
     var in_body = text.substring(idxSt, idxEn);
     in_body = adjustImgSizeForMsWord(path, in_body);
+    in_body = insertMarginOnTablePre(in_body);
     //console.log(in_body);
 
     return in_body;
@@ -115,9 +116,10 @@ function makeFrontCoverHtml(work_dir, bookinfo)
 }
 
 
+///@param[in]   path    e.g. "public/docs/hi6/hrscript"
 ///@return      수정된 in_body
-///@brief	MS word
-///         cheerio 활용
+///@brief	MS word용 조정
+///         (cheerio 활용)
 function adjustImgSizeForMsWord(path, in_body)
 {
     const $ = cheerio.load(in_body, null, false);
@@ -125,7 +127,7 @@ function adjustImgSizeForMsWord(path, in_body)
 
     imgs.each(function() {
         const src = $(this).attr('src');
-        const pathname = path + '/' + src;
+        const pathname = path + src;
         const dimOrg = imageSize(pathname);
 
         console.log(`${pathname} : W=${dimOrg.width}, H=${dimOrg.height}`);
@@ -172,4 +174,24 @@ function resizeForMsWord(elem, dimOrg)
     elem.attr('height', dim.height);
 
     return true;
+}
+
+
+///@return      수정된 in_body
+///@brief	MS word에서 table에 margin을 넣으면 tr 높이가 커진다.
+///         할 수 없이 강제로 table 앞에 빈 행을 삽입.
+///         (cheerio 활용)
+function insertMarginOnTablePre(in_body)
+{
+    const $ = cheerio.load(in_body, null, false);
+    
+    $('table').before("<br>\n");
+    $('table').after("\n<br>");
+
+    $('pre').before("<br>\n");
+    $('pre').after("\n<br>");
+
+    in_body = $.html();
+    
+    return in_body;
 }
