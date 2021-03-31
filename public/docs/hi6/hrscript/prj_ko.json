@@ -10,7 +10,7 @@
 			"file": "book_cover_front.html"
 		},
 		{
-			"file": "../../view/toc_ko.html"
+			"file": "../../../view/toc_ko.html"
 		},
 		{
 			"file": "1_개요.html"
@@ -31,7 +31,7 @@
 			"file": "6_외부장치와_통신하기.html"
 		},
 		{
-			"file": "../../view/book_cover_back_ko.html"
+			"file": "../../../view/book_cover_back_ko.html"
 		}
 	]
 }

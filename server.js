@@ -7,7 +7,7 @@ var app = express();
 
 // template engine
 app.set('view engine', 'ejs');
-app.set('views', './public/view');
+app.set('views', '../view');
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ 

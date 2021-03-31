@@ -29,7 +29,7 @@ function buildBook(path, prj_name) {
         url: '/build',
         type: 'post',
         data: {
-			path: 'public/' + path,
+			path: 'public/docs/' + path,
 			prj_name: prj_name
 		},
         success: function(data) {

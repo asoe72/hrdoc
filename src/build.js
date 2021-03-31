@@ -9,7 +9,7 @@ const cheerio = require('cheerio');
 const imageSize = require('image-size')
 
 
-///@param[in]	path	    e.g. "public/works/cmd/" or "cmd"
+///@param[in]	path	    e.g. "public/docs/hi6/hrscript/"
 ///@param[in]	prj_name	e.g. "prj_ko"
 ///@brief	project를 읽어 그 구조대로 책을 묶는다.
 exports.buildBook = function(path, prj_name) {
@@ -96,7 +96,7 @@ function getHtmlFromMergedInBody(bookinfo, merged_in_body)
 }
 
 
-///@param[in]	work_dir	    e.g. public/works/cmd/
+///@param[in]	work_dir	    e.g. "public/docs/hi6/hrscript/"
 ///@param[in]	bookinfo
 ///@brief	front cover template으로 .html 파일 생성
 function makeFrontCoverHtml(work_dir, bookinfo)
