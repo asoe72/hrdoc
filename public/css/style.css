@@ -1,0 +1,27 @@
+﻿/**
+    @date: 	2020-12-27
+    @author: Hyundai Robototics Co., Ltd. choi, won-hyuk (asoe72@hyundai-robotics.com)
+    @brief: Command Help Editor for Hi6 Robot Controller
+*/
+
+
+body {
+    margin: 0px;
+}
+
+#client-area {
+    padding: 100px 50px 20px 30px;
+}
+
+/* bootstrap button 선택 표시 제거 */
+.btn:focus, .btn:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+#prj-name {
+	color: #111;
+	width:100px;
+	height:32px;
+	font-size: 1.2em;
+}

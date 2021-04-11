@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>2. 기본 문법</title>
-  <link type="text/css" rel="stylesheet" href="../../css/style.css">
+  <link type="text/css" rel="stylesheet" href="../../../css/book.css">
 </head>
 
 <body>
@@ -70,7 +70,7 @@
   move P,po3,spd=80%,accu=1,tool=3 until do33</pre>
 
   프로시져 매개변수는 아래와 같이 3가지 종류가 있습니다.
-  <table style="width: 100%" border="1">
+  <table>
     <tbody>
       <tr>
         <th>종류</th>
@@ -141,7 +141,7 @@
   문자열 내의 따옴표 혹은 특수 문자를 표현하기 위해 역슬래시(\)로 시작하는 시퀀스가 사용됩니다. 이러한 시퀀스를
   이스케이프(escape) 문자라고 합니다.<br>
   지원되는 이스케이프 문자는 아래 표와 같습니다.
-  <table style="width: 100%" border="1">
+  <table>
     <tbody>
       <tr>
         <td class="vert">"</td>
@@ -180,7 +180,7 @@
   print 280, -99 </pre>
 
   시스템 내부적으로는 정수와 실수를 따로 구분해서 처리합니다. 각각의 데이터 크기는 아래와 같습니다.
-  <table style="width: 100%" border="1">
+  <table>
     <tbody>
       <tr>
         <th>데이터 형</th>
@@ -289,6 +289,7 @@
   HRScript가 지원하는 연산자는 아래와 같습니다. 위에 있을수록 연산자 우선순위가 높습니다. (즉, 먼저 수행됩니다.)<br>
   <br>
 
+  <div class='page-break-b'></div>
 
   <table>
     <tbody>
@@ -296,7 +297,7 @@
         <th>
           연산자
         </th>
-        <th>
+        <th width="25%">
           의미
         </th>
         <th>
@@ -389,7 +390,7 @@
           &lt;&lt;&nbsp;
           &gt;&gt;&nbsp;
         </td>
-        <td>
+        <td width="25%">
           bitwise AND<br>
           bitwise XOR<br>
           bitwise OR<br>
@@ -397,10 +398,10 @@
           shift right (부호유지)
         </td>
         <td>
-          0b11010010 &amp; 0b11110000 ; 0xd0
-          0b11010010 ^ 0b11110000 ; 0x22
-          0b11010010 | 0b11110000 ; 0xf2
-          0b11010010 &lt;&lt; 2 ; 0b1101001000
+          0b11010010 &amp; 0b11110000 ; 0xd0<br>
+          0b11010010 ^ 0b11110000 ; 0x22<br>
+          0b11010010 | 0b11110000 ; 0xf2<br>
+          0b11010010 &lt;&lt; 2 ; 0b1101001000<br>
           0b11010010 &gt;&gt; 2 ; 0b00110100
         </td>
       </tr>
@@ -467,10 +468,11 @@
   print response=="ok"
   print response=="ng"</pre>
 
-  <br>
+  <p>
   간혹, 연산과정에서 피연산자의 자료형이 자동으로 바뀌는 경우도 있습니다.<br>
   논리연산자의 피연산자로 수치를 사용할 경우, 수치가 0이면 false, 0이 아니면 true로 간주합니다.<br>
-  <br>
+  </p>
+  
   <pre class="codebox">
   var count_a=1, count_b=0, height=100
   print count_a and height&gt;99

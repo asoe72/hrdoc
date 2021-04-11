@@ -1,0 +1,37 @@
+{
+	"bookinfo": {
+		"series": "Hi6 제어기",
+		"title": "HRScript 기능설명서",
+		"publisher": "현대로보틱스",
+		"tocTitleElements": "[ \"h1\", \"h2\", \"h3\" ]"
+	},
+	"struc": [
+		{
+			"file": "book_cover_front.html"
+		},
+		{
+			"file": "../../../view/toc_ko.html"
+		},
+		{
+			"file": "1_개요.html"
+		},
+		{
+			"file": "2_기본_문법.html"
+		},
+		{
+			"file": "3_제어문과_서브프로그램.html"
+		},
+		{
+			"file": "4_배열과_객체.html"
+		},
+		{
+			"file": "5_로봇언어로_로봇_움직이기.html"
+		},
+		{
+			"file": "6_외부장치와_통신하기.html"
+		},
+		{
+			"file": "../../../view/book_cover_back_ko.html"
+		}
+	]
+}

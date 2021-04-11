@@ -1,0 +1,20 @@
+﻿/* 
+    coded by choi, won-hyuk
+    since 2021-03-28
+    overriding for pasting to MS word
+*/
+
+
+/* ----------------------------------------------------- */
+/* general */
+body {
+    margin: 0em;    /* word layout에 이미 page margin 설정이 되어 있음. */
+}
+
+
+/* ----------------------------------------------------- */
+/* table */
+
+table {
+    margin: 0em 0em;    /* 행이 높이가 커지는 것 방지 */
+}
