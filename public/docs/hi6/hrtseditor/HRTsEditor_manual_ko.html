@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>HRTsEditor 사용자설명서</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link type="text/css" rel="stylesheet" href="../../../css/book.css">
+</head>
+
+
+<body>
+  <h1>목차</h1>
+  <p><a href='#ch1'>1. HRTsEditor 소개</a></p>
+  <p><a href='#ch2'>2. 설치</a></p>
+  <p><a href='#ch3'>3. 사용 절차</a></p>
+
+  <h1 id='ch1'>1. HRTsEditor 소개</h1>
+  <p>
+    Hi6 제어기의 티치펜던트 U/I는 Qt Linguist 소프트웨어로 다국어화할 수 있습니다.<br>
+    각 언어별로 한 개씩의 .ts (Qt translation) 파일을 생성하며 Linguist에서 번역 문자열들을 입력합니다.<br>
+    Qt Linguist를 사용하기 위해서는 GUI framework인 Qt 전체를 다운로드 받아 설치해야 하는데 용량이 매우 큽니다.
+  </p>
+  <p>
+    HRTsEditor는 Qt Linguist를 대체할 수 있으며 아래와 같은 장점이 있습니다.
+    <ul>
+      <li>Qt를 설치할 필요 없습니다. 용량이 작아 가볍게 설치할 수 있습니다.</li>
+      <li>Lingobit 소프트웨어에서 export한 .csv 파일의 번역 내용을 import할 수 있습니다.</li>
+    </ul>
+  </p>
+  <img src="pic/trans.png" width="90%">
+
+
+  <h1 id='ch2'>2. 설치</h1>
+
+  <p>구버전이 설치되어 있으면 먼저 설치 제거 하십시오.</p>
+  <p>HRTsEditorInstaller.exe를 실행하십시오. (subst로 생성한 드라이브에서 실행하면 설치 실패할 수 있으니 유의하십시오.)</p>
+  <p>Next 버튼을 클릭하면서 설치를 진행하십시오.</p>
+  <img style="border: 1px solid gray" src="pic/install.png" width="60%">
+
+
+  <h1 id='ch3'>3. 사용 절차</h1>
+
+  <h2>3.1 파일 불러오기, 편집하기, 저장하기</h2>
+
+  <h3>파일 불러오기</h3>
+
+  <p>윈도우 시작 버튼에서 HRTsEditor를 클릭하여 실행하십시오.</p>
+  <img src="pic/start.png">
+
+  <p>
+    File - Open... 메뉴, 혹은 <img class="iconbox" src="pic/folder_16.png"> 툴 버튼을 클릭하여 .ts 파일을 여십시오.<br>
+  </p>
+
+  <h3>편집하기</h3>
+
+  <p>
+    좌상단의 Contexts 테이블에는 문자열들을 포함하는 소프트웨어 내의 각 객체의 이름이 열거됩니다.<br>
+    좌하단의 Strings 테이블에는 Contexts 리스트에서 선택한 Context에 포함된 문자열들이 열거됩니다.<br>
+    Context 선택 후 String 항목 하나를 선택하면 우측에는 원본 문자열, 번역본 문자열, 주석이 표시됩니다.<br>
+    주석은 번역 과정에서 메모할 내용을 적어두는 항목으로서 번역 결과에는 영향을 주지 않습니다.<br>
+    
+    <br>
+    <img src="pic/input.png" width="90%">
+
+    원본에 맞는 번역 문자열을 타이핑한 후 아래 조작 중 하나를 하면 입력이 완료됩니다.
+  </p>
+  <ul>
+    <li>Tools - Mark as Finished 메뉴를 선택합니다.</li>
+    <li><img class="iconbox" src="pic/finished_16.png">툴 버튼을 클릭합니다.</li>
+    <li>Alt+Enter 키를 누릅니다.</li>
+  </ul>
+
+  <p>
+    Strings 테이블은 총 3개의 열로 구성됩니다.<br>
+    2번째 열에는 원본 문자열이 표시되고, 3번째 열에는 번역번 문자열이 표시됩니다.<br>
+    1번째 열의 아이콘은 각기 아래와 같은 의미입니다.<br>
+
+    <ol>
+      <li><img class="icon" src="pic/finished_16.png"> : finished (번역 완결 상태로 표시한 항목.)</li>
+      <li><img class="icon" src="pic/unfinished_16.png"> : unfinished (번역문자열은 입력했지만 좀 더 검토가 필요한 것으로 표시한 항목.)</li>
+      <li><img class="icon" src="pic/unfinished_none_16.png"> : unfinished-none (번역 문자열이 입력되지 않은 항목)</li>
+      <li><img class="icon" src="pic/vanished_16.png"> : vanished or obscured (소프트웨어 변경에 의해 무효화된 원본 문자열 항목. 번역할 필요가 없음.)</li>
+    </ol>
+  </p>
+
+  <h3>저장하기</h3>
+
+  <p>
+    File - Save as... 메뉴, 혹은 <img class="iconbox" src="pic/save_16.png"> 툴 버튼을 클릭하여, 편집한 내용을 .ts 파일로 저장할 수 있습니다.
+  </p>
+  <img src="pic/save_as.png">
+
+
+
+  <h2>3.2 번역 import 하기</h2>
+
+  <p>
+    기존에 Lingobit 소프트웨어에서 작성한 번역 프로젝트가 있다면 이 번역 내용을 HRTsEditor에 import할 수 있습니다.<br>
+    .ts 파일의 각 원본 문자열을 .csv에서 찾아 동일한 원본 문자열 항목이 있으면 .csv의 번역 문자열을 .ts로 해당 항목으로 복사하는 방식으로 import를 수행합니다.
+  </p>
+  
+  <p>
+    우선 Lingobit 소프트웨어에서 번역 프로젝트를 연 후, File - export 메뉴를 선택하고 .csv 파일로 저장하십시오.<br>
+    다음으로 HRTsEditor에서 .ts 파일을 여십시오.<br>
+
+    Tools - Import .csv translation... 메뉴, 혹은 <img class="iconbox" src="pic/recycle_16.png"> 툴 버튼을 클릭하여, import 대화상자를 여십시오.<br>    
+  </p>
+
+  <img class="border-img" src="pic/trans.png" width="80%">
+
+  <p>
+    Pathname에 .csv파일의 경로파일명을 입력하거나 <img class="iconbox" src="pic/folder_16.png"> 버튼을 클릭하여 선택하십시오.<br>
+    이제 Import 버튼을 클릭하고 Import가 수행되는 동안 잠시 기다려 주십시오. 진행막대가 100%가 되면 우 상단 X 버튼을 클릭해 대화상자를 닫으십시오.<br>
+    
+    import 버튼을 클릭하면 Hi5a 원본의 각 alarm 코드에 대해 Hi6의 원본의 각 alarm 코드와 비교합니다.
+    두 원본의 메시지가 동일할 경우, Hi5a의 번역본 도움말을 Hi6의 번역본으로 복사해줍니다.
+
+    import 되지 못한 나머지 alarm 코드들에 대해서 번역 작업을 수행하십시오.<br>
+  </p>
+  <img src="pic/import.png" width="80%">
+
+</body>
+
+</html>

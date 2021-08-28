@@ -125,15 +125,29 @@ pre.codebox {
 
 /* ----------------------------------------------------- */
 /* image */
-img {
+img, .border-img {
     display: block;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 2em;
 }
 
+.border-img {
+    border: 1px solid gray;
+}
+
 div.ct {
     text-align: center;
+}
+
+.icon, .iconbox {
+    display: inline-block;
+    margin: 0em 0.4em;
+    padding: 0.3em;
+}
+
+.iconbox {
+    border: 1px solid lightgray;
 }
 
 /* ----------------------------------------------------- */
