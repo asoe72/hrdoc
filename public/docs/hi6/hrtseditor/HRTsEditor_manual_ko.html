@@ -16,8 +16,10 @@
     <li><a href='#ch2'>2. 설치</a></li>
     <li><a href='#ch3'>3. 사용 절차</a></li>
     <ul>
-      <li><a href='#ch3-1'>3.1 파일 불러오기, 편집하기, 저장하기</a></li>
-      <li><a href='#ch3-2'>3.2 번역 import 하기</a></li>
+      <li><a href='#ch3-1'>3.1 시작하기, 파일 불러오기</a></li>
+      <li><a href='#ch3-2'>3.2 화면의 구성 요소</a></li>
+      <li><a href='#ch3-3'>3.2 편집하기, 저장하기</a></li>
+      <li><a href='#ch3-4'>3.3 번역 import 하기</a></li>
     </ul>
   </ul>
 
@@ -31,7 +33,7 @@
     Qt Linguist를 사용하기 위해서는 GUI framework인 Qt 전체를 다운로드 받아 설치해야 하는데 용량이 매우 큽니다.
   </p>
   <p>
-    HRTsEditor는 Qt Linguist를 대체할 수 있으며 아래와 같은 장점이 있습니다.
+    HRTsEditor는 Qt Linguist를 부분적으로 대체할 수 있으며 아래와 같은 장점이 있습니다.
     <ul>
       <li>Qt를 설치할 필요 없습니다. 용량이 작아 가볍게 설치할 수 있습니다.</li>
       <li>Lingobit 소프트웨어에서 export한 .csv 파일의 번역 내용을 import할 수 있습니다.</li>
@@ -39,6 +41,13 @@
   </p>
   <img class="border-img" src="pic/trans.png" width="90%">
 
+  <p>
+    단, Qt Linguist의 기능 중 아래 기능들은 없습니다.
+    <ul>
+      <li>U/I 화면을 시각적으로 보여주는 Visual Editor.</li>
+      <li>.ts 파일을 소프트웨어에 탑재할 .qm 파일로 컴파일하는 기능.</li>
+    </ul>
+  </p>
   <br>
 
 
@@ -57,18 +66,22 @@
   <hr>
   <h1 id='ch3'>3. 사용 절차</h1>
 
+  <h2 id='ch3-1'>3.1 시작하기, 파일 불러오기</h2>
+
+  <h3>시작하기</h3>
+
   <p>윈도우 시작 버튼에서 HRTsEditor를 클릭하여 실행하십시오.</p>
   <img src="pic/start.png">
-
-  <h2 id='ch3-1'>3.1 파일 불러오기, 편집하기, 저장하기</h2>
-
+  
   <h3>파일 불러오기</h3>
 
   <p>
     File - Open... 메뉴를 선택하거나, <img class="iconbox" src="pic/folder_16.png"> 툴 버튼을 클릭하여 .ts 파일을 여십시오.<br>
   </p>
 
-  <h3>편집하기</h3>
+  <h2 id='ch3-2'>3.2 파일 불러오기, 화면의 구성 요소</h2>
+
+  <h3>화면 구성</h3>
 
   <p>
     .ts 파일은 문자열들을 소프트웨어 내의 각 객체별로 그룹핑하여 관리하는데, 이 그룹을 context라고 지칭합니다.<br>
@@ -80,33 +93,7 @@
     <br>
     <img src="pic/input.png" width="90%">
 
-    원본에 맞는 번역 문자열을 타이핑한 후 아래 조작 중 하나를 하면 입력이 완료됩니다.
-  </p>
-  <ul>
-    <li>Tools - Mark as Finished 메뉴를 선택합니다.</li>
-    <li><img class="iconbox" src="pic/finished_16.png">툴 버튼을 클릭합니다.</li>
-    <li>Alt+Enter 단축키를 누릅니다.</li>
-  </ul>
-
-  <p>
-    다음 조작 중 하나를 하면, mark as finished를 수행한 후, 다음 unfinished 항목으로 이동하기 때문에 편집을 빠르게 수행할 수 있습니다.
-    <ul>
-      <li>Tools - Mark as Finished and Next Unfinished 메뉴를 선택합니다.</li>
-      <li><img class="iconbox" src="pic/finished_and_next_16.png">툴 버튼을 클릭합니다.</li>
-      <li>Ctrl+Enter 단축키를 누릅니다.</li>
-    </ul>
-  </p>
-
-  <p>
-    아래 조작을 통해 이전/다음 unfinished 항목으로 쉽게 이동할 수 있습니다.
-    <ul>
-      <li>Tools - Prev Unfinished / Tools - Next Unfinished 메뉴를 선택합니다.</li>
-      <li><img class="iconbox" src="pic/prev_unfinished_16.png"> / <img class="iconbox" src="pic/next_unfinished_16.png"> 툴 버튼을 클릭합니다.</li>
-      <li>Ctrl+j / Ctrl+k 단축키를 누릅니다.</li>
-    </ul>
-  </p>
-
-  <h3>항목 type의 의미</h3>
+    <h3>항목 type의 의미</h3>
 
   <p>
     Strings 테이블은 총 3개의 열로 구성됩니다.<br>
@@ -132,6 +119,39 @@
     <li>이 외의 경우에는, type 열에는 finished 아이콘이 표시됩니다.</li>
   </ul>
 
+  <h2 id='ch3-3'>3.3 편집하기, 저장하기</h2>
+
+  <h3>편집하기</h3>
+
+    원본에 맞는 번역 문자열을 타이핑한 후 아래 조작 중 하나를 하면 입력이 완료되면서 finished로 표시됩니다.
+  </p>
+  <ul>
+    <li>Tools - Mark as Finished 메뉴를 선택합니다.</li>
+    <li><img class="iconbox" src="pic/finished_16.png">툴 버튼을 클릭합니다.</li>
+    <li>Alt+Enter 단축키를 누릅니다.</li>
+  </ul>
+  ()
+
+  <p>
+    다음 조작 중 하나를 하면, mark as finished를 수행한 후, 다음 unfinished 항목으로 이동하기 때문에 편집을 빠르게 수행할 수 있습니다.
+    <ul>
+      <li>Tools - Mark as Finished and Next Unfinished 메뉴를 선택합니다.</li>
+      <li><img class="iconbox" src="pic/finished_and_next_16.png">툴 버튼을 클릭합니다.</li>
+      <li>Ctrl+Enter 단축키를 누릅니다.</li>
+    </ul>
+  </p>
+
+  <p>
+    아래 조작을 통해 이전/다음 unfinished 항목으로 쉽게 이동할 수 있습니다.
+    <ul>
+      <li>Tools - Prev Unfinished / Tools - Next Unfinished 메뉴를 선택합니다.</li>
+      <li><img class="iconbox" src="pic/prev_unfinished_16.png"> / <img class="iconbox" src="pic/next_unfinished_16.png"> 툴 버튼을 클릭합니다.</li>
+      <li>Ctrl+j / Ctrl+k 단축키를 누릅니다.</li>
+    </ul>
+  </p>
+
+  
+
   <h3>저장하기</h3>
 
   <p>
@@ -141,7 +161,7 @@
 
 
 
-  <h2 id='ch3-2'>3.2 번역 import 하기</h2>
+  <h2 id='ch3-4'>3.4 번역 import 하기</h2>
 
   <p>
     기존에 Lingobit 소프트웨어에서 작성한 번역 프로젝트가 있다면 이 번역 내용을 HRTsEditor에 import할 수 있습니다.<br>
@@ -149,7 +169,7 @@
   </p>
   
   <p>
-    우선 Lingobit 소프트웨어에서 번역 프로젝트를 연 후, File - export 메뉴를 선택하고 .csv 파일로 저장하십시오.<br>
+    우선 Lingobit 소프트웨어에서 번역 프로젝트를 연 후, File - Export - Export text/CSV 메뉴를 선택하고 .csv 파일로 저장하십시오.<br>
     다음으로 HRTsEditor에서 .ts 파일을 여십시오.<br>
 
     Tools - Import .csv translation... 메뉴, 혹은 <img class="iconbox" src="pic/recycle_16.png"> 툴 버튼을 클릭하여, import 대화상자를 여십시오.<br>    
